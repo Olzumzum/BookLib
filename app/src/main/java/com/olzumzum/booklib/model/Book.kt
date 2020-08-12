@@ -1,5 +1,8 @@
 package com.olzumzum.bookslibrary.model
 
+import androidx.room.Entity
+
+@Entity(tableName = "book")
 data class Book(
     val authors: List<Author>,
     val by_statement: String,
