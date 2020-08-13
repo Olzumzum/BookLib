@@ -24,12 +24,13 @@ class BookRepository() {
 
     fun getAllBook(): Single<String>? {
 
-        sibleAllBook = bookServerCommunicator.getAllBook()
-        .flatMap {
-            Log.e("MyLog", "Loading is ${it.isSuccessful}")
-            d = it.body()?.status
-            Single.just(it.body()?.status)
-        }
+        bookServerCommunicator.getAllBook()
+//        sibleAllBook = bookServerCommunicator.getAllBook()
+//        .flatMap {
+//            Log.e("MyLog", "Loading is ${it.isSuccessful}")
+//            d = it.body()?.status
+//            Single.just(it.body()?.status)
+//        }
         return sibleAllBook
     }
 
