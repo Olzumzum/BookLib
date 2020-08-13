@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.olzumzum.booklib.R
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.bookslibrary.model.Book
-import io.reactivex.SingleObserver
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -18,12 +18,14 @@ class BookViewModel(): ViewModel() {
         MutableLiveData<String>()
     }
 
-    var diposable: Disposable? = null
+    private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
+
+    private var disposable: Disposable? = null
 
     private val repository: BookRepository = BookRepository()
 
     init {
-        diposable = repository.getAllBook()
+        disposable = repository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object: DisposableSingleObserver<Book>(){
@@ -33,11 +35,11 @@ class BookViewModel(): ViewModel() {
 
                 override fun onError(e: Throwable) {
                     e.printStackTrace();
+                    Log.e("MyLog", "тут ошибка")
+                    errorMessageId.value = R.string.error_data_loading
                 }
 
             })
-
-
     }
 
     fun getAllBook(): LiveData<String>{
@@ -45,6 +47,10 @@ class BookViewModel(): ViewModel() {
     }
 
     fun unsubscribe(){
+        disposable?.dispose()
+    }
 
+    fun getErrorMessage(): LiveData<Int>{
+        return errorMessageId
     }
 }

@@ -8,6 +8,6 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface BookApi {
-    @GET("api/get?key=/b/OL1001932M")
+    @GET("api/query.json?type=/type/edition&authors=/authors/OL1A")
     fun getAllBook(): Single<BookResponse>
 }

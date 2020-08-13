@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">BookLib</string>
+    
+    <!-- Error message -->
+    <string name="error_data_loading">Data loading error</string>
 </resources>
