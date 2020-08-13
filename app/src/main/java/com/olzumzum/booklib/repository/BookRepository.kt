@@ -3,7 +3,12 @@ package com.olzumzum.booklib.repository
 import android.util.Log
 import com.olzumzum.booklib.server.BookApi
 import com.olzumzum.booklib.server.BookServerCommunicator
+import com.olzumzum.bookslibrary.model.Book
 import io.reactivex.Single
+import io.reactivex.SingleObserver
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -19,20 +24,10 @@ class BookRepository() {
 
         bookServerCommunicator = BookServerCommunicator(api)
     }
-    private var sibleAllBook: Single<String>? = null
-    var d: String? = null
 
-    fun getAllBook(): Single<String>? {
 
-        bookServerCommunicator.getAllBook()
-//        sibleAllBook = bookServerCommunicator.getAllBook()
-//        .flatMap {
-//            Log.e("MyLog", "Loading is ${it.isSuccessful}")
-//            d = it.body()?.status
-//            Single.just(it.body()?.status)
-//        }
-        return sibleAllBook
-    }
+
+    fun getAllBook(): Single<Book> = bookServerCommunicator.getAllBook()
 
 
     companion object {

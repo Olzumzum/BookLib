@@ -29,4 +29,5 @@ task clean(type: Delete) {
 ext {
     roomVersion = '2.2.5'
     lifecycle_version = '2.2.0'
+    retrofitVerdion = '2.9.0'
 }
