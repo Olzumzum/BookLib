@@ -9,15 +9,21 @@ import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.Provider
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
+    @Inject
     lateinit var viewModel: BookViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        viewModel = ViewModelProvider(this).get(BookViewModel::class.java)
+        (application as App).getAppComponent().activitySubComponentBuilder()
+            .with(this)
+            .build()
+            .inject(this)
+
         viewModel.getAllBook().observe(this, Observer{
             tv.setText(it)
         })

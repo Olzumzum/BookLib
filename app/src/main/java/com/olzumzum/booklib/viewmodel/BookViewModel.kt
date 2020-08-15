@@ -29,7 +29,8 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
 
 
     init {
-        (application as App).getAppComponent().inject(this)
+        (application as App).getViewModelSubComponent().inject(this)
+
         disposable = bookRepository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
