@@ -14,43 +14,13 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class BookRepository() {
-    private val bookServerCommunicator: BookServerCommunicator
-    init {
-
-        val retrofit = provideRetrofit()
-        val api = provideBookApi(retrofit)
-
-        bookServerCommunicator = BookServerCommunicator(api)
-    }
-
-
+class BookRepository(
+    val bookServerCommunicator: BookServerCommunicator
+) {
 
     fun getAllBook(): Single<Book> = bookServerCommunicator.getAllBook()
 
 
-    companion object {
-        private val API_URL = "http://openlibrary.org"
-
-        fun provideRetrofit(): Retrofit {
-            val networkLogInterceptor = HttpLoggingInterceptor()
-            networkLogInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
-            val client = OkHttpClient.Builder()
-                .addInterceptor(networkLogInterceptor)
-                .build()
-
-            return Retrofit.Builder()
-                .baseUrl(API_URL)
-                .client(client)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .build()
-        }
-
-        fun provideBookApi(retrofit: Retrofit): BookApi {
-            return retrofit.create(BookApi::class.java)
-        }
-    }
 }

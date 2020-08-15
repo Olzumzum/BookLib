@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.snackbar.Snackbar
+import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import java.security.Provider
