@@ -30,7 +30,11 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
     init {
         (application as App).getViewModelSubComponent().inject(this)
 
-        disposable = bookRepository.getAllBook()
+        disposable = booksByData()
+    }
+
+    fun allBook(): Disposable {
+       return bookRepository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object: DisposableSingleObserver<List<Book>>(){
@@ -46,6 +50,26 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
 
             })
     }
+
+    fun booksByData(): Disposable{
+       return bookRepository.getBooksByDate()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object: DisposableSingleObserver<Int>(){
+                override fun onSuccess(books: Int) {
+                    allBookLiveData.value = books.toString()
+                }
+
+                override fun onError(e: Throwable) {
+                    e.printStackTrace();
+                    Log.e("MyLog", "тут ошибка")
+                    errorMessageId.value = R.string.error_data_loading
+                }
+
+            })
+    }
+
+
 
     fun getAllBook(): LiveData<String>{
         return allBookLiveData
