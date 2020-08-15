@@ -1,13 +1,15 @@
 package com.olzumzum.booklib.server
 
-import com.olzumzum.bookslibrary.model.BookResponse
-import io.reactivex.Observable
+import com.olzumzum.booklib.model.BookResponse
 import io.reactivex.Single
-import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 
 interface BookApi {
-    @GET("api/query.json?type=/type/edition&authors=/authors/OL1A")
+    @GET("lists/names.json?api-key=DbxVWARey07rfVhGOu3Arypl5Lftc76g")
     fun getAllBook(): Single<BookResponse>
+
+    companion object{
+        private val API_KEY = "DbxVWARey07rfVhGOu3Arypl5Lftc76g"
+    }
 }
+

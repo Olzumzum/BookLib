@@ -1,25 +1,18 @@
-package com.olzumzum.bookslibrary.model
+package com.olzumzum.booklib.model
 
-import androidx.room.Entity
+import com.google.gson.annotations.SerializedName
 
-@Entity(tableName = "book")
 data class Book(
-    val authors: List<Author>,
-    val by_statement: String,
-    val covers: List<Int>,
-    val created: Created,
-    val genres: List<String>,
-    val key: String,
-    val languages: List<Language>,
-    val lccn: List<String>,
-    val number_of_pages: Int,
-    val pagination: String,
-    val publish_country: String,
-    val publishers: List<String>,
-    val source_records: List<String>,
-    val subject_place: List<String>,
-    val subjects: List<String>,
-    val title: String,
-    val type: Type,
-    val works: List<Work>
+    @SerializedName("display_name")
+    val display_name: String,
+    @SerializedName("list_name")
+    val list_name: String,
+    @SerializedName("list_name_encoded")
+    val list_name_encoded: String,
+    @SerializedName("newest_published_date")
+    val newest_published_date: String,
+    @SerializedName("oldest_published_date")
+    val oldest_published_date: String,
+    @SerializedName("updated")
+    val updated: String
 )

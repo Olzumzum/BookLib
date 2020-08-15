@@ -1,29 +1,23 @@
 package com.olzumzum.booklib.server
 
 import android.util.Log
-import com.olzumzum.bookslibrary.model.Book
-import com.olzumzum.bookslibrary.model.BookResponse
-import io.reactivex.Observable
-import io.reactivex.Scheduler
+import com.olzumzum.booklib.model.Book
+import com.olzumzum.booklib.model.BookResponse
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
-import retrofit2.Callback
-import retrofit2.Response
-import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
 
 class BookServerCommunicator(val mBookApi: BookApi) {
 
 
-
-    fun getAllBook(): Single<Book> {
-        return  mBookApi.getAllBook()
-            .flatMap {
-                Single.just(it.result)
+    fun getAllBook(): Single<List<Book>> {
+        return mBookApi.getAllBook()
+            .flatMap { response ->
+                Single.just(response.books)
             }
 
-//        return k
+
     }
 }

@@ -5,11 +5,10 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
+import com.olzumzum.booklib.model.Book
 import com.olzumzum.booklib.repository.BookRepository
-import com.olzumzum.bookslibrary.model.Book
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -34,9 +33,9 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
         disposable = bookRepository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object: DisposableSingleObserver<Book>(){
-                override fun onSuccess(book: Book) {
-                    allBookLiveData.value = book.title
+            .subscribeWith(object: DisposableSingleObserver<List<Book>>(){
+                override fun onSuccess(books: List<Book>) {
+                    allBookLiveData.value = books.size.toString()
                 }
 
                 override fun onError(e: Throwable) {

@@ -1,14 +1,14 @@
-package com.olzumzum.bookslibrary.model
+package com.olzumzum.booklib.model
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
 import com.google.gson.annotations.SerializedName
 
-
-@Entity(tableName = "books_response")
 data class BookResponse(
-    @SerializedName("result")
-    val result: Book,
+    @SerializedName("copyright")
+    val copyright: String,
+    @SerializedName("num_results")
+    val num_results: Int,
+    @SerializedName("results")
+    val books: List<Book>,
     @SerializedName("status")
     val status: String
 )
