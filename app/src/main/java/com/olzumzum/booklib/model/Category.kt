@@ -2,7 +2,7 @@ package com.olzumzum.booklib.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Book(
+data class Category(
     @SerializedName("display_name")
     val display_name: String,
     @SerializedName("list_name")

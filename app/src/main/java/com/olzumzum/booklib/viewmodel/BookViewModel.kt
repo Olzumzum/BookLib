@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
-import com.olzumzum.booklib.model.Book
+import com.olzumzum.booklib.model.Category
 import com.olzumzum.booklib.repository.BookRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 
 class BookViewModel(application: Application): AndroidViewModel(application) {
-    private val allBookLiveData: MutableLiveData<String> by lazy {
-        MutableLiveData<String>()
+    private val allCategoriesLiveData: MutableLiveData<Category> by lazy {
+        MutableLiveData<Category>()
     }
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
     private var disposable: Disposable? = null
@@ -30,16 +30,19 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
     init {
         (application as App).getViewModelSubComponent().inject(this)
 
-        disposable = booksByData()
+        disposable = allBook()
     }
 
+    /**
+     * Список категорий бестселлеров
+     */
     fun allBook(): Disposable {
        return bookRepository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object: DisposableSingleObserver<List<Book>>(){
-                override fun onSuccess(books: List<Book>) {
-                    allBookLiveData.value = books.size.toString()
+            .subscribeWith(object: DisposableSingleObserver<List<Category>>(){
+                override fun onSuccess(categories: List<Category>) {
+                    allCategoriesLiveData.value = categories.get(2)
                 }
 
                 override fun onError(e: Throwable) {
@@ -57,7 +60,7 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object: DisposableSingleObserver<Int>(){
                 override fun onSuccess(books: Int) {
-                    allBookLiveData.value = books.toString()
+//                    allBookLiveData.value = books.toString()
                 }
 
                 override fun onError(e: Throwable) {
@@ -71,8 +74,8 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
 
 
 
-    fun getAllBook(): LiveData<String>{
-        return allBookLiveData
+    fun getAllBook(): LiveData<Category>{
+        return allCategoriesLiveData
     }
 
     fun unsubscribe(){

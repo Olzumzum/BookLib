@@ -24,8 +24,13 @@ class MainActivity : AppCompatActivity() {
             .build()
             .inject(this)
 
-        viewModel.getAllBook().observe(this, Observer{
-            tv.setText(it)
+        viewModel.getAllBook().observe(this, Observer{book ->
+            display_name.text = book.display_name
+            list_name.text = book.list_name
+            list_name_encoded.text = book.list_name_encoded
+            newest_published_date.text = book.newest_published_date
+            oldest_published_date.text = book.oldest_published_date
+            updated.text = book.updated
         })
 
         viewModel.getErrorMessage().observe(this, Observer {message ->
