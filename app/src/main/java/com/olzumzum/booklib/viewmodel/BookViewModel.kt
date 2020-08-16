@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.Category
+import com.olzumzum.booklib.model.Results
 import com.olzumzum.booklib.repository.BookRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -16,13 +17,15 @@ import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 
-class BookViewModel(application: Application): AndroidViewModel(application) {
+class BookViewModel(application: Application) : AndroidViewModel(application) {
     private val allCategoriesLiveData: MutableLiveData<List<Category>> by lazy {
         MutableLiveData<List<Category>>()
     }
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
     private var disposable: Disposable? = null
-
+    private val resultsLiveData: MutableLiveData<Results> by lazy {
+        MutableLiveData<Results>()
+    }
     @Inject
     lateinit var bookRepository: BookRepository
 
@@ -37,10 +40,10 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
      * Список категорий бестселлеров
      */
     private fun allBook(): Disposable {
-       return bookRepository.getAllBook()
+        return bookRepository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object: DisposableSingleObserver<List<Category>>(){
+            .subscribeWith(object : DisposableSingleObserver<List<Category>>() {
                 override fun onSuccess(categories: List<Category>) {
                     allCategoriesLiveData.value = categories
                 }
@@ -54,13 +57,13 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
             })
     }
 
-    private fun booksByData(): Disposable{
-       return bookRepository.getBooksByDate()
+    private fun booksByData(): Disposable {
+        return bookRepository.getBooksByDate()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object: DisposableSingleObserver<Int>(){
-                override fun onSuccess(books: Int) {
-//                    allBookLiveData.value = books.toString()
+            .subscribeWith(object : DisposableSingleObserver<Results>() {
+                override fun onSuccess(results: Results) {
+                    resultsLiveData.value = results
                 }
 
                 override fun onError(e: Throwable) {
@@ -73,16 +76,21 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
     }
 
 
+    fun getResults(): LiveData<Results> {
+        disposable = booksByData()
+        return resultsLiveData
+
+    }
 
     fun getAllBook(): MutableLiveData<List<Category>> {
         return allCategoriesLiveData
     }
 
-    fun unsubscribe(){
+    fun unsubscribe() {
         disposable?.dispose()
     }
 
-    fun getErrorMessage(): LiveData<Int>{
+    fun getErrorMessage(): LiveData<Int> {
         return errorMessageId
     }
 }

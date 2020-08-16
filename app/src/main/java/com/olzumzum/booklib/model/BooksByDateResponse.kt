@@ -9,8 +9,8 @@ data class BooksByDateResponse(
     val last_modified: String,
     @SerializedName("num_results")
     val num_results: Int,
-//    @SerializedName("results")
-//    val books: Results,
+    @SerializedName("results")
+    val results: Results,
     @SerializedName("status")
     val status: String
 )
