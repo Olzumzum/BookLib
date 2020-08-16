@@ -18,5 +18,5 @@ interface ActivitySubComponent {
     }
 
     fun inject(mainActivity: MainActivity)
-//    fun inject(categoriesBestsellerFragment: CategoriesBestsellerFragment)
+    fun inject(categoriesBestsellerFragment: CategoriesBestsellerFragment)
 }

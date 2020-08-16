@@ -12,8 +12,8 @@ class CategoriesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var categories = mutableListOf<Category>()
 
-    fun updateData(data: MutableList<Category>){
-        categories = data
+    fun updateData(data: List<Category>){
+        categories = data as MutableList<Category>
         notifyDataSetChanged()
     }
 

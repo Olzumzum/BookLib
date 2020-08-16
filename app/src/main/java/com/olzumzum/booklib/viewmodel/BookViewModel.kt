@@ -17,8 +17,8 @@ import javax.inject.Inject
 
 
 class BookViewModel(application: Application): AndroidViewModel(application) {
-    private val allCategoriesLiveData: MutableLiveData<Category> by lazy {
-        MutableLiveData<Category>()
+    private val allCategoriesLiveData: MutableLiveData<List<Category>> by lazy {
+        MutableLiveData<List<Category>>()
     }
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
     private var disposable: Disposable? = null
@@ -36,13 +36,13 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
     /**
      * Список категорий бестселлеров
      */
-    fun allBook(): Disposable {
+    private fun allBook(): Disposable {
        return bookRepository.getAllBook()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object: DisposableSingleObserver<List<Category>>(){
                 override fun onSuccess(categories: List<Category>) {
-                    allCategoriesLiveData.value = categories.get(2)
+                    allCategoriesLiveData.value = categories
                 }
 
                 override fun onError(e: Throwable) {
@@ -54,7 +54,7 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
             })
     }
 
-    fun booksByData(): Disposable{
+    private fun booksByData(): Disposable{
        return bookRepository.getBooksByDate()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -74,7 +74,7 @@ class BookViewModel(application: Application): AndroidViewModel(application) {
 
 
 
-    fun getAllBook(): LiveData<Category>{
+    fun getAllBook(): MutableLiveData<List<Category>> {
         return allCategoriesLiveData
     }
 
