@@ -2,6 +2,7 @@ package com.olzumzum.booklib.viewmodel
 
 import android.app.Application
 import android.util.Log
+import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -35,6 +36,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
         disposable = allBook()
     }
+
 
     /**
      * Список категорий бестселлеров
