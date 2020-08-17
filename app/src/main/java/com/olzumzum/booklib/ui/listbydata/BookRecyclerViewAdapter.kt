@@ -36,7 +36,7 @@ class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.Vie
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 //        val bookImage = view.findViewById<TextView>(R.id.book_image)
-            val binding = DataBindingUtil.bind<ViewDataBinding>(view)
+//            val binding = DataBindingUtil.bind<ViewDataBinding>(view)
 
         fun bind(book: BookX) {
 
