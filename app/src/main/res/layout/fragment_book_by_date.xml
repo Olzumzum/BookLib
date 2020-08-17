@@ -4,7 +4,7 @@
     <data>
         <variable
             name="results"
-            type="com.olzumzum.booklib.model.Results" />
+            type="com.olzumzum.booklib.model.InfoByDateBook" />
 
     </data>
 

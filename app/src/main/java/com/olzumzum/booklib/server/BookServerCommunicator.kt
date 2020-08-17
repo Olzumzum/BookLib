@@ -1,9 +1,7 @@
 package com.olzumzum.booklib.server
 
-import android.util.Log
-import com.olzumzum.booklib.model.BooksByDateResponse
 import com.olzumzum.booklib.model.Category
-import com.olzumzum.booklib.model.Results
+import com.olzumzum.booklib.model.InfoByDateBook
 import io.reactivex.Single
 
 
@@ -17,10 +15,10 @@ class BookServerCommunicator(val mBookApi: BookApi) {
             }
     }
 
-    fun getBooksByDate(): Single<Results> {
+    fun getBooksByDate(): Single<InfoByDateBook> {
         return mBookApi.getBooksByDate()
             .flatMap { response ->
-                Single.just(response.results)
+                Single.just(response.infoByDateBook)
             }
     }
 }

@@ -1,6 +1,6 @@
 package com.olzumzum.booklib.model
 
-data class Results(
+data class InfoByDateBook(
     val bestsellers_date: String,
     val books: List<BookX>,
     val display_name: String,

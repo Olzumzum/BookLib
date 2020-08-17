@@ -2,14 +2,13 @@ package com.olzumzum.booklib.viewmodel
 
 import android.app.Application
 import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.Category
-import com.olzumzum.booklib.model.Results
+import com.olzumzum.booklib.model.InfoByDateBook
 import com.olzumzum.booklib.repository.BookRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -24,8 +23,8 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     }
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
     private var disposable: Disposable? = null
-    private val resultsLiveData: MutableLiveData<Results> by lazy {
-        MutableLiveData<Results>()
+    private val infoByDateBookLiveData: MutableLiveData<InfoByDateBook> by lazy {
+        MutableLiveData<InfoByDateBook>()
     }
     @Inject
     lateinit var bookRepository: BookRepository
@@ -63,9 +62,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         return bookRepository.getBooksByDate()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<Results>() {
-                override fun onSuccess(results: Results) {
-                    resultsLiveData.value = results
+            .subscribeWith(object : DisposableSingleObserver<InfoByDateBook>() {
+                override fun onSuccess(infoByDateBook: InfoByDateBook) {
+                    infoByDateBookLiveData.value = infoByDateBook
                 }
 
                 override fun onError(e: Throwable) {
@@ -78,9 +77,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     }
 
 
-    fun getResults(): LiveData<Results> {
+    fun getResults(): LiveData<InfoByDateBook> {
         disposable = booksByData()
-        return resultsLiveData
+        return infoByDateBookLiveData
 
     }
 
