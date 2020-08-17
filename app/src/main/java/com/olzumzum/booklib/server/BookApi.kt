@@ -9,7 +9,7 @@ interface BookApi {
     @GET("lists/names.json?api-key=$API_KEY")
     fun getAllBooks(): Single<CategoriesResponse>
 
-    @GET("lists/2019-01-20/hardcover-fiction.json?api-key=$API_KEY")
+    @GET("lists/2020-08-15/hardcover-fiction.json?api-key=$API_KEY")
     fun getBooksByDate(): Single<BooksByDateResponse>
 
     companion object{
