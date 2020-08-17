@@ -49,9 +49,6 @@ class BookByDateFragment : Fragment() {
 
         val view = binding.root
 
-
-
-
         val adapter = BookRecyclerViewAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
         recyclerView?.layoutManager = LinearLayoutManager(activity)

@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.model.BookX
+import com.olzumzum.booklib.model.Results
+import org.w3c.dom.Text
 
 
 class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>() {

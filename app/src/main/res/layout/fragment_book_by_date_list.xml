@@ -7,6 +7,9 @@
         <variable
             name="results"
             type="com.olzumzum.booklib.model.Results" />
+        <variable
+            name="book"
+            type="com.olzumzum.booklib.model.BookX" />
 
     </data>
 
@@ -31,7 +34,8 @@
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
             tools:context=".ui.listbydata.BookByDateFragment"
-            tools:listitem="@layout/fragment_book_by_date" />
+            tools:listitem="@layout/fragment_book_by_date"
+            app:book="@{book}"/>
 
     </LinearLayout>
 </layout>
