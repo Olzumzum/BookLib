@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import com.olzumzum.booklib.R
+import com.olzumzum.booklib.databinding.FragmentItemBookBinding
 import com.olzumzum.booklib.model.BookX
-import com.olzumzum.booklib.model.Results
-import org.w3c.dom.Text
 
 
 class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>() {
@@ -34,20 +35,11 @@ class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.Vie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title = view.findViewById<TextView>(R.id.title)
-        val author = view.findViewById<TextView>(R.id.author)
-        val bookImage = view.findViewById<TextView>(R.id.book_image)
-        val rank = view.findViewById<TextView>(R.id.rank)
-        val rankLastWeek = view.findViewById<TextView>(R.id.rank_last_week)
-        val weeksOnList = view.findViewById<TextView>(R.id.weeks_on_list)
+//        val bookImage = view.findViewById<TextView>(R.id.book_image)
+            val binding = DataBindingUtil.bind<ViewDataBinding>(view)
 
         fun bind(book: BookX) {
-            title.text = book.title
-            author.text = book.author
-            bookImage.text = book.book_image
-            rank.text = "${book.rank}"
-            rankLastWeek.text = "${book.rank_last_week}"
-            weeksOnList.text = "${book.weeks_on_list}"
+
 
         }
     }
