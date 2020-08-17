@@ -15,6 +15,7 @@ import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateBinding
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
 import com.olzumzum.booklib.viewmodel.BookViewModel
+import com.olzumzum.booklib.viewmodel.ViewModelAdapter
 import javax.inject.Inject
 
 /**
@@ -53,7 +54,7 @@ class BookByDateFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
-        val adapter = BookRecyclerViewAdapter()
+        val adapter = ViewModelAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.adapter = adapter
