@@ -1,43 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <data>
+        <variable
+            name="results"
+            type="com.olzumzum.booklib.model.Results" />
 
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/bestsellers_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="wrap_content"
+            android:text="@{results.bestsellers_date}"/>
 
         <TextView
             android:id="@+id/display_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@{results.display_name}"/>
 
         <TextView
             android:id="@+id/next_published_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@{results.next_published_date}"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Дата публикации"/>
+            android:text="Дата публикации" />
+
         <TextView
             android:id="@+id/published_date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@{results.published_date}"/>
 
         <TextView
             android:id="@+id/published_date_description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="@{results.published_date_description}"/>
 
         <TextView
             android:id="@+id/updated"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:text="@{results.updated}"/>
+    </LinearLayout>
+</layout>
