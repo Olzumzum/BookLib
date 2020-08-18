@@ -4,4 +4,10 @@
     <!-- Error message -->
     <string name="error_data_loading">Data loading error</string>
 
+    <!-- imformation result book by date -->
+    <string name="info_books_by_date_date_public">Date of publication</string>
+    <string name="info_books_by_date_bestsellers_date">Bestsellers date</string>
+    <string name="info_books_by_date_display_name">Literature category:</string>
+    <string name="info_books_by_date_next_published_date">Next published date</string>
+
 </resources>

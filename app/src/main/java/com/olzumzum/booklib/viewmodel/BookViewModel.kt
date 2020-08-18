@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.BookX
-import com.olzumzum.booklib.model.Results
+import com.olzumzum.booklib.model.InfoBooksByDate
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.booklib.utils.checkDateNull
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,7 +21,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
 
     //сводная информация по списку бесцеллеров
-    private val results: MutableLiveData<Results> = MutableLiveData()
+    private val infoBooksByDate: MutableLiveData<InfoBooksByDate> = MutableLiveData()
 
     //список книг-бестселлеров по заданной дате
     private val books: MutableLiveData<List<BookX>> = MutableLiveData()
@@ -44,13 +44,13 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         return bookRepository.getBooksByDate()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<Results>() {
-                override fun onSuccess(results: Results) {
-                    this@BookViewModel.results.value = results
-                    books.value = results.books
+            .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
+                override fun onSuccess(infoBooksByDate: InfoBooksByDate) {
+                    this@BookViewModel.infoBooksByDate.value = infoBooksByDate
+                    books.value = infoBooksByDate.books
 
                     //проверка данных на пустоту
-                    this@BookViewModel.results.checkDateNull(errorMessageId)
+                    this@BookViewModel.infoBooksByDate.checkDateNull(errorMessageId)
                     books.checkDateNull(errorMessageId)
                 }
 
@@ -66,7 +66,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      * вернуть информацию о списке бестселлеров
      * по указанной дате
      */
-    fun getResults(): LiveData<Results>? = results
+    fun getResults(): LiveData<InfoBooksByDate>? = infoBooksByDate
 
 
     fun getBooks(): LiveData<List<BookX>> = books

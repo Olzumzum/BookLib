@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="results"
+            type="com.olzumzum.booklib.model.InfoBooksByDate" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_info_book_mergin_top"
+            android:layout_marginRight="@dimen/fragment_info_book_mergin"
+            android:layout_marginLeft="@dimen/fragment_info_book_mergin"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_info_book_padding"
+                android:layout_weight="0.4"
+                android:orientation="vertical">
+
+                <!--Literature category -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14dp"
+                        android:text="@string/info_books_by_date_display_name" />
+
+                    <TextView
+                        android:id="@+id/display_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="15dp"
+                        android:text="@{results.display_name}" />
+
+                    <View
+                        android:id="@+id/divider"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="?android:attr/listDivider" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fragment_info_text_size"
+
+                    android:text="@string/info_books_by_date_bestsellers_date" />
+
+                <TextView
+                    android:id="@+id/bestsellers_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fragment_info_text_size"
+                    android:text="@{results.bestsellers_date}" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fragment_info_text_size"
+                    android:text="@string/info_books_by_date_date_public" />
+
+                <TextView
+                    android:id="@+id/published_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/fragment_info_text_size"
+                    android:text="@{results.published_date}" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/fragment_info_book_padding"
+                android:layout_weight="0.9"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="updated" />
+
+                <TextView
+                    android:id="@+id/updated"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:text="@{results.updated}" />
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

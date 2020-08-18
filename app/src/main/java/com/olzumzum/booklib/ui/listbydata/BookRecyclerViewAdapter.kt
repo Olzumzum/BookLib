@@ -4,16 +4,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
-import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
-import com.olzumzum.booklib.R
 import com.olzumzum.booklib.databinding.FragmentItemBookBinding
 import com.olzumzum.booklib.model.BookX
-import com.olzumzum.booklib.model.Results
-import com.squareup.picasso.Picasso
-import org.w3c.dom.Text
 
 
 class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>() {
