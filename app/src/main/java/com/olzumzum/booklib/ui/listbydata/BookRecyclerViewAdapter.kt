@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import com.olzumzum.booklib.R
+import com.olzumzum.booklib.databinding.FragmentItemBookBinding
 import com.olzumzum.booklib.model.BookX
 import com.olzumzum.booklib.model.Results
 import org.w3c.dom.Text
@@ -16,14 +18,19 @@ class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.Vie
     private var books: List<BookX> = mutableListOf<BookX>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_item_book, parent, false)
+        val inflater: LayoutInflater = LayoutInflater.from(parent.context)
 
-        return ViewHolder(view)
+        val binding = FragmentItemBookBinding.inflate(
+            inflater,
+            parent,
+            false
+        )
+        return ViewHolder(binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(books[position])
+        val book = books[position]
+        holder.binding?.book = book
     }
 
     override fun getItemCount(): Int = books.size
@@ -34,11 +41,8 @@ class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.Vie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val binding: FragmentItemBookBinding? = DataBindingUtil.bind<FragmentItemBookBinding>(view)
 
 
-        fun bind(book: BookX) {
-
-
-        }
     }
 }

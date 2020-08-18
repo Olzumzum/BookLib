@@ -66,11 +66,10 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      * вернуть информацию о списке бестселлеров
      * по указанной дате
      */
-    fun getResults(): LiveData<Results>? {
-        return results
-    }
+    fun getResults(): LiveData<Results>? = results
 
-//    fun getResults(): LiveData<Results> = results
+
+    fun getBooks(): LiveData<List<BookX>> = books
 
     fun getErrorMessage(): LiveData<Int> {
         return errorMessageId

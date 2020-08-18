@@ -60,6 +60,10 @@ class BookByDateFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.adapter = adapter
 
+        viewModel.getBooks().observe(viewLifecycleOwner, Observer {books ->
+            adapter.update(books)
+        })
+
         viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {message ->
             showErrorMessage(message)
         })
