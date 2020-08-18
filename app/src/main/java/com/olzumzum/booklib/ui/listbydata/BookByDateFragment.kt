@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
@@ -16,6 +18,7 @@ import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import com.olzumzum.booklib.viewmodel.CategoriesViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_book_by_date_list.*
 import javax.inject.Inject
 
@@ -76,9 +79,24 @@ class BookByDateFragment : Fragment() {
     }
 
 
+
+
     companion object {
         @JvmStatic
         fun newInstance(columnCount: Int) = BookByDateFragment()
     }
 
+}
+
+/**
+ * Загрузка изображений
+ */
+@BindingAdapter("imageUrl")
+fun loadImage(imageView: ImageView, url: String){
+    Picasso.get()
+        .load(url)
+        .placeholder(R.color.colorPrimaryDark)
+        .error(R.color.colorAccent)
+        .fit()
+        .into(imageView)
 }
