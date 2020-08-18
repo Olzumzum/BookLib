@@ -35,7 +35,7 @@
             app:layoutManager="LinearLayoutManager"
             tools:context=".ui.listbydata.BookByDateFragment"
             tools:listitem="@layout/fragment_book_by_date"
-            app:book="@{book}"/>
+       />
 
     </LinearLayout>
 </layout>

@@ -7,14 +7,13 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
-import com.olzumzum.booklib.databinding.FragmentBookByDateBinding
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
 import com.olzumzum.booklib.viewmodel.BookViewModel
+import com.olzumzum.booklib.viewmodel.CategoriesViewModel
 import javax.inject.Inject
 
 /**
@@ -24,6 +23,7 @@ class BookByDateFragment : Fragment() {
 
     @Inject
     lateinit var viewModel: BookViewModel
+
     private var columnCount = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,7 +53,6 @@ class BookByDateFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.adapter = adapter
-
 
 
         viewModel.getResults().observe(viewLifecycleOwner, androidx.lifecycle.Observer { results ->
