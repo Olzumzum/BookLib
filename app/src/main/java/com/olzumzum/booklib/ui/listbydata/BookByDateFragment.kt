@@ -9,11 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import com.olzumzum.booklib.viewmodel.CategoriesViewModel
+import kotlinx.android.synthetic.main.fragment_book_by_date_list.*
 import javax.inject.Inject
 
 /**
@@ -46,6 +49,7 @@ class BookByDateFragment : Fragment() {
             container,
             false
         )
+        //биндинг данных во вью
         val view = binding.root
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
@@ -56,10 +60,15 @@ class BookByDateFragment : Fragment() {
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.adapter = adapter
 
-
-
+        viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {message ->
+            showErrorMessage(message)
+        })
 
         return view
+    }
+
+    fun showErrorMessage(idResource: Int){
+        Snackbar.make(fragment_book_by_date_layout, getString(idResource), Snackbar.LENGTH_LONG).show()
     }
 
 

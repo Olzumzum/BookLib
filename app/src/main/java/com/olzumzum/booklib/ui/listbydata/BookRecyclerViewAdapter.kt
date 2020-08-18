@@ -34,20 +34,10 @@ class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.Vie
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val title = view.findViewById<TextView>(R.id.title)
-        val author = view.findViewById<TextView>(R.id.author)
-        val bookImage = view.findViewById<TextView>(R.id.book_image)
-        val rank = view.findViewById<TextView>(R.id.rank)
-        val rankLastWeek = view.findViewById<TextView>(R.id.rank_last_week)
-        val weeksOnList = view.findViewById<TextView>(R.id.weeks_on_list)
+
 
         fun bind(book: BookX) {
-            title.text = book.title
-            author.text = book.author
-            bookImage.text = book.book_image
-            rank.text = "${book.rank}"
-            rankLastWeek.text = "${book.rank_last_week}"
-            weeksOnList.text = "${book.weeks_on_list}"
+
 
         }
     }

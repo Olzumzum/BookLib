@@ -7,11 +7,10 @@
         <variable
             name="viewModel"
             type="com.olzumzum.booklib.viewmodel.BookViewModel" />
-
-
     </data>
 
     <LinearLayout
+        android:id="@+id/fragment_book_by_date_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
