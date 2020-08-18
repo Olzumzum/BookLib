@@ -10,4 +10,12 @@
     <string name="info_books_by_date_display_name">Literature category:</string>
     <string name="info_books_by_date_next_published_date">Next published date</string>
 
+    <!-- Item book, books by date -->
+    <string name="fragment_item_book_image_description">Image book</string>
+    <string name="fragment_item_book_title">Title</string>
+    <string name="fragment_item_book_author">Author</string>
+    <string name="fragment_item_book_rank">Rank</string>
+    <string name="fragment_item_book_rank_last_week">Rank last week</string>
+    <string name="fragment_item_book_weeks_on_list">Weeks on list</string>
+
 </resources>
