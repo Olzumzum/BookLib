@@ -10,6 +10,7 @@ import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.BookX
 import com.olzumzum.booklib.model.Results
 import com.olzumzum.booklib.repository.BookRepository
+import com.olzumzum.booklib.utils.checkDateNull
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.observers.DisposableSingleObserver
@@ -48,8 +49,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
                     this@BookViewModel.results.value = results
                     books.value = results.books
 
-                    checkDateNull(this@BookViewModel.results)
-                    checkDateNull(this@BookViewModel.books)
+                    //проверка данных на пустоту
+                    this@BookViewModel.results.checkDateNull(errorMessageId)
+                    books.checkDateNull(errorMessageId)
                 }
 
                 override fun onError(e: Throwable) {
@@ -58,11 +60,6 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
                     errorMessageId.value = R.string.error_data_loading
                 }
             })
-    }
-
-    private fun checkDateNull(livedate: LiveData<out Any>) {
-        if(livedate.value == null)
-                errorMessageId.value = R.string.error_data_loading
     }
 
     /**
