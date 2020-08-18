@@ -5,11 +5,9 @@
 
     <data>
         <variable
-            name="results"
-            type="com.olzumzum.booklib.model.Results" />
-        <variable
-            name="book"
-            type="com.olzumzum.booklib.model.BookX" />
+            name="viewModel"
+            type="com.olzumzum.booklib.viewmodel.BookViewModel" />
+
 
     </data>
 
@@ -23,7 +21,7 @@
             layout="@layout/fragment_book_by_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:results="@{results}"/>
+            app:results="@{viewModel.results}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/books_by_date_lsit"

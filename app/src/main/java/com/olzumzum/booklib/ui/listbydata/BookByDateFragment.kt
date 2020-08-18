@@ -46,8 +46,10 @@ class BookByDateFragment : Fragment() {
             container,
             false
         )
-
         val view = binding.root
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
+
 
         val adapter = BookRecyclerViewAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
@@ -55,9 +57,7 @@ class BookByDateFragment : Fragment() {
         recyclerView?.adapter = adapter
 
 
-        viewModel.getResults().observe(viewLifecycleOwner, androidx.lifecycle.Observer { results ->
-            adapter.update(results.books)
-        })
+
 
         return view
     }
