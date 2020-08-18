@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.olzumzum.booklib.R
@@ -15,6 +14,7 @@ import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateBinding
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
 import com.olzumzum.booklib.viewmodel.BookViewModel
+import com.olzumzum.booklib.viewmodel.CategoriesViewModel
 import com.olzumzum.booklib.viewmodel.ViewModelAdapter
 import javax.inject.Inject
 
@@ -61,10 +61,7 @@ class BookByDateFragment : Fragment() {
 
 
 
-//        viewModel.getResults().observe(viewLifecycleOwner, androidx.lifecycle.Observer { results ->
-////            binding.results = results
-//            adapter.update(results.books)
-//        })
+
 
         return view
     }

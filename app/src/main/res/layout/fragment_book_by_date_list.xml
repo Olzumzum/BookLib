@@ -7,9 +7,7 @@
         <variable
             name="viewModel"
             type="com.olzumzum.booklib.viewmodel.BookViewModel" />
-        <variable
-            name="book"
-            type="com.olzumzum.booklib.model.BookX" />
+
     </data>
 
     <LinearLayout

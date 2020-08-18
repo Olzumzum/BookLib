@@ -1,10 +1,8 @@
 package com.olzumzum.booklib.di.component
 
 import android.app.Application
-import com.olzumzum.booklib.MainActivity
 import com.olzumzum.booklib.di.module.ApiModule
 import com.olzumzum.booklib.di.module.BookRepositoryModule
-import com.olzumzum.booklib.viewmodel.BookViewModel
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
