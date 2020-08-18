@@ -56,7 +56,6 @@ class BookByDateFragment : Fragment() {
 
 
         viewModel.getResults().observe(viewLifecycleOwner, androidx.lifecycle.Observer { results ->
-            binding.results = results
             adapter.update(results.books)
         })
 
