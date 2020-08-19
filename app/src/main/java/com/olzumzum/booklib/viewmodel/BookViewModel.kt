@@ -10,6 +10,7 @@ import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.BookX
 import com.olzumzum.booklib.model.InfoBooksByDate
 import com.olzumzum.booklib.repository.BookRepository
+import com.olzumzum.booklib.ui.listbydata.NavigatorBooks
 import com.olzumzum.booklib.utils.checkDateNull
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -27,6 +28,8 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     //список книг-бестселлеров по заданной дате
     private val books: MutableLiveData<List<BookX>> = MutableLiveData()
 
+    //для отображения одного элемента
+    private lateinit var navigatorBooks: NavigatorBooks
 
     private var disposable: Disposable? = null
 
@@ -89,5 +92,14 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         disposable?.dispose()
     }
 
+    fun itemOnClick(book: BookX) {
+        Log.e("Logg", "itemOnClick")
+        navigatorBooks.onItemClicked(book)
+    }
+
+    fun setNavigatorBooks(navigatorBooks: NavigatorBooks) {
+        Log.e("Logg", "setNavigatorBooks")
+        this@BookViewModel.navigatorBooks = navigatorBooks
+    }
 
 }

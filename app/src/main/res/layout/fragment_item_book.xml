@@ -3,6 +3,9 @@
     xmlns:bind="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.olzumzum.booklib.viewmodel.BookViewModel" />
 
         <variable
             name="book"
@@ -19,7 +22,7 @@
         android:clickable="true"
         android:focusable="true"
         android:background="?attr/selectableItemBackground"
-        android:onClick="">
+        android:onClick="@{()->viewModel.itemOnClick(book)}">
 
         <ImageView
             android:id="@+id/imageView"

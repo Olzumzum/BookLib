@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.BindingConversion
@@ -20,6 +21,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
+import com.olzumzum.booklib.model.BookX
+import com.olzumzum.booklib.ui.book_full_info.BookFullInfoFragment
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import com.olzumzum.booklib.viewmodel.CategoriesViewModel
 import com.squareup.picasso.Picasso
@@ -29,7 +32,7 @@ import javax.inject.Inject
 /**
  * A fragment representing a list of Items.
  */
-class BookByDateFragment : Fragment() {
+class BookByDateFragment : Fragment(), NavigatorBooks {
 
     @Inject
     lateinit var viewModel: BookViewModel
@@ -62,14 +65,16 @@ class BookByDateFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-
-
         val adapter = BookRecyclerViewAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.adapter = adapter
+        binding.booksByDateLsit.adapter = adapter
+
         recyclerView.addItemDecoration(RecyclerDivider(context!!))
 
+        //обработка нажатия на элемент списка
+        viewModel.setNavigatorBooks(this)
         viewModel.getBooks().observe(viewLifecycleOwner, Observer {books ->
             adapter.update(books)
         })
@@ -91,6 +96,16 @@ class BookByDateFragment : Fragment() {
     companion object {
         @JvmStatic
         fun newInstance(columnCount: Int) = BookByDateFragment()
+    }
+
+    override fun onItemClicked(book: BookX) {
+//        val bookFullInfoFragment = BookFullInfoFragment()
+//        getActivity()?.getSupportFragmentManager()?.beginTransaction()
+//            ?.replace(R.id.root_layout, bookFullInfoFragment,"findThisFragment")
+//            ?.addToBackStack(null)
+//            ?.commit();
+        Toast.makeText(context, "Открытие фрагмента", Toast.LENGTH_SHORT).show()
+        Log.e("Logg", "Должна открыться другая активность")
     }
 
 }
