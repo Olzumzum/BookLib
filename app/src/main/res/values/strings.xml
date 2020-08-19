@@ -17,5 +17,6 @@
     <string name="fragment_item_book_rank">Rank</string>
     <string name="fragment_item_book_rank_last_week">Rank last week</string>
     <string name="fragment_item_book_weeks_on_list">Weeks on list</string>
+    <string name="fragment_book_full_info_link_review">Link to review</string>
 
 </resources>

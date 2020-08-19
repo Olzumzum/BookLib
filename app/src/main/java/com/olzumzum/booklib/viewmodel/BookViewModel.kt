@@ -19,12 +19,14 @@ import javax.inject.Inject
 
 class BookViewModel(application: Application) : AndroidViewModel(application) {
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
+    private var isLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     //сводная информация по списку бесцеллеров
     private val infoBooksByDate: MutableLiveData<InfoBooksByDate> = MutableLiveData()
 
     //список книг-бестселлеров по заданной дате
     private val books: MutableLiveData<List<BookX>> = MutableLiveData()
+
 
     private var disposable: Disposable? = null
 
@@ -34,6 +36,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     init {
         (application as App).getViewModelSubComponent().inject(this)
         disposable = booksByData()
+        isLoaded.value = true
     }
 
     /**
@@ -52,12 +55,16 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
                     //проверка данных на пустоту
                     this@BookViewModel.infoBooksByDate.checkDateNull(errorMessageId)
                     books.checkDateNull(errorMessageId)
+
+                    isLoaded.value = false
+
                 }
 
                 override fun onError(e: Throwable) {
                     e.printStackTrace();
                     Log.e("MyLog", "тут ошибка")
                     errorMessageId.value = R.string.error_data_loading
+                    isLoaded.value = false
                 }
             })
     }
@@ -75,8 +82,12 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         return errorMessageId
     }
 
+    fun getIsLoaded(): LiveData<Boolean> = isLoaded
+
     override fun onCleared() {
         super.onCleared()
         disposable?.dispose()
     }
+
+
 }

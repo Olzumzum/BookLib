@@ -2,6 +2,7 @@ package com.olzumzum.booklib.ui.listbydata
 
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
+import androidx.databinding.BindingConversion
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -60,6 +62,8 @@ class BookByDateFragment : Fragment() {
         binding.viewModel = viewModel
 
 
+
+
         val adapter = BookRecyclerViewAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
@@ -74,14 +78,14 @@ class BookByDateFragment : Fragment() {
             showErrorMessage(message)
         })
 
+
+
         return view
     }
 
     fun showErrorMessage(idResource: Int){
         Snackbar.make(fragment_book_by_date_layout, getString(idResource), Snackbar.LENGTH_LONG).show()
     }
-
-
 
 
     companion object {
@@ -103,3 +107,4 @@ fun loadImage(imageView: ImageView, url: String){
         .fit()
         .into(imageView)
 }
+

@@ -1,6 +1,200 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <variable
+            name="book"
+            type="com.olzumzum.booklib.model.BookX" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_item_book_margin"
+            android:layout_marginTop="@dimen/fragment_item_book_margin"
+            android:layout_marginBottom="@dimen/fragment_item_book_margin"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView"
+                bind:imageUrl="@{book.book_image}"
+                android:layout_width="90dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="4dp"
+                android:contentDescription="@string/fragment_item_book_image_description" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/fragment_item_book_title" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{book.title}"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/fragment_item_book_author" />
+
+                    <TextView
+                        android:id="@+id/author"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{book.author}"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/fragment_item_book_rank" />
+
+                    <TextView
+                        android:id="@+id/rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(book.rank)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/fragment_item_book_rank_last_week" />
+
+                    <TextView
+                        android:id="@+id/rank_last_week"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(book.rank_last_week)}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/fragment_item_book_weeks_on_list" />
+
+                    <TextView
+                        android:id="@+id/weeks_on_list"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@{Integer.toString(book.weeks_on_list)}" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.description}" />
+
+        <TextView
+            android:id="@+id/age_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.age_group}" />
+
+        <TextView
+            android:id="@+id/book_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.price}" />
+
+        <TextView
+            android:id="@+id/publisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.publisher}" />
+
+        <TextView
+            android:id="@+id/contributor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.contributor}" />
+
+        <TextView
+            android:id="@+id/contributor_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.contributor_note}" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_book_full_info_link_review" />
+
+        <TextView
+            android:id="@+id/sunday_review_link"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{book.sunday_review_link}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/book_uri"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="book_uri" />
+
+            <Button
+                android:id="@+id/first_chapter_link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="first_chapter_link" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
