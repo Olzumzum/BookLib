@@ -1,5 +1,6 @@
 package com.olzumzum.booklib.ui.listbydata
 
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
@@ -62,6 +64,7 @@ class BookByDateFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
         recyclerView?.layoutManager = LinearLayoutManager(activity)
         recyclerView?.adapter = adapter
+        recyclerView.addItemDecoration(RecyclerDivider(context!!))
 
         viewModel.getBooks().observe(viewLifecycleOwner, Observer {books ->
             adapter.update(books)
