@@ -95,16 +95,5 @@ class BookByDateFragment : Fragment() {
 
 }
 
-/**
- * Загрузка изображений
- */
-@BindingAdapter("imageUrl")
-fun loadImage(imageView: ImageView, url: String){
-    Picasso.get()
-        .load(url)
-        .placeholder(R.color.colorPrimaryDark)
-        .error(R.color.colorAccent)
-        .fit()
-        .into(imageView)
-}
+
 
