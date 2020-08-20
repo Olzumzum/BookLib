@@ -2,10 +2,14 @@ package com.olzumzum.booklib.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "bookX")
 data class BookX(
+    @ColumnInfo(name = "id_bookX")
+    @PrimaryKey(autoGenerate = true)
+    val idBookX: Int,
     @SerializedName("age_group")
     @ColumnInfo(name = "age_group")
     val ageGroup: String,
