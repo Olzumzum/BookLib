@@ -2,6 +2,7 @@ package com.olzumzum.booklib.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "info_books_by_date")
@@ -12,6 +13,7 @@ data class InfoBooksByDate(
     val bestsellersDate: String,
     @SerializedName("books")
     @ColumnInfo(name = "books")
+    @Relation(parentColumn = "id", entityColumn = "id_book")
     val books: List<BookX>,
     @SerializedName("display_name")
     @ColumnInfo(name = "display_name")
