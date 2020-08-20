@@ -6,5 +6,5 @@ import com.olzumzum.booklib.model.BookX
 
 @Database(entities = arrayOf(BookX::class), version = 1, exportSchema = false)
 abstract class BookByDateRoomDatabase: RoomDatabase() {
-    abstract fun
+//    abstract fun
 }

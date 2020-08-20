@@ -25,7 +25,7 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                bind:imageUrl="@{book.book_image}"
+                bind:imageUrl="@{book.bookImage}"
                 android:layout_width="90dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="3dp"
@@ -110,7 +110,7 @@
                         android:id="@+id/rank_last_week"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(book.rank_last_week)}" />
+                        android:text="@{Integer.toString(book.rankLastWeek)}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,7 +128,7 @@
                         android:id="@+id/weeks_on_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(book.weeks_on_list)}" />
+                        android:text="@{Integer.toString(book.weeksOnList)}" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -143,7 +143,7 @@
             android:id="@+id/age_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.age_group}" />
+            android:text="@{book.ageGroup}" />
 
         <TextView
             android:id="@+id/book_price"
@@ -167,7 +167,7 @@
             android:id="@+id/contributor_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.contributor_note}" />
+            android:text="@{book.contributorNote}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -178,7 +178,7 @@
             android:id="@+id/sunday_review_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.sunday_review_link}" />
+            android:text="@{book.sundayReviewLink}" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -32,7 +32,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="4dp"
             android:contentDescription="@string/fragment_item_book_image_description"
-            bind:imageUrl="@{book.book_image}" />
+            bind:imageUrl="@{book.bookImage}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                     android:id="@+id/rank_last_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(book.rank_last_week)}" />
+                    android:text="@{Integer.toString(book.rankLastWeek)}" />
             </LinearLayout>
 
             <LinearLayout
@@ -128,7 +128,7 @@
                     android:id="@+id/weeks_on_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{Integer.toString(book.weeks_on_list)}" />
+                    android:text="@{Integer.toString(book.weeksOnList)}" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
