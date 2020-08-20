@@ -97,13 +97,11 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     }
 
     override fun onItemClicked(book: BookX) {
-//        val bookFullInfoFragment = BookFullInfoFragment()
-//        getActivity()?.getSupportFragmentManager()?.beginTransaction()
-//            ?.replace(R.id.root_layout, bookFullInfoFragment,"findThisFragment")
-//            ?.addToBackStack(null)
-//            ?.commit();
-        Toast.makeText(context, "Открытие фрагмента", Toast.LENGTH_SHORT).show()
-        Log.e("Logg", "Должна открыться другая активность")
+        val bookFullInfoFragment = BookFullInfoFragment()
+        getActivity()?.getSupportFragmentManager()?.beginTransaction()
+            ?.replace(R.id.root_layout, bookFullInfoFragment,"findThisFragment")
+            ?.addToBackStack(null)
+            ?.commit();
     }
 
 }
