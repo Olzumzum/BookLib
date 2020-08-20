@@ -65,18 +65,16 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         binding.viewModel = viewModel
 
 
-        val adapter = BookRecyclerViewAdapter()
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
-        recyclerView?.layoutManager = LinearLayoutManager(activity)
-        recyclerView?.adapter = adapter
-        binding.booksByDateLsit.adapter = adapter
+
+        binding.booksByDateLsit.layoutManager = LinearLayoutManager(context)
 
         recyclerView.addItemDecoration(RecyclerDivider(context!!))
 
         //обработка нажатия на элемент списка
         viewModel.setNavigatorBooks(this)
         viewModel.getBooks().observe(viewLifecycleOwner, Observer {books ->
-            adapter.update(books)
+            binding.booksByDateLsit.adapter = BookRecyclerViewAdapter(books, viewModel)
         })
 
         viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {message ->

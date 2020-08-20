@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.olzumzum.booklib.databinding.FragmentItemBookBinding
 import com.olzumzum.booklib.model.BookX
+import com.olzumzum.booklib.viewmodel.BookViewModel
 
 
-class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>() {
+class BookRecyclerViewAdapter(
+    var books: List<BookX>,
+    var viewModel: BookViewModel
+) : RecyclerView.Adapter<BookRecyclerViewAdapter.ViewHolder>() {
 
-    private var books: List<BookX> = mutableListOf<BookX>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
@@ -21,26 +24,26 @@ class BookRecyclerViewAdapter : RecyclerView.Adapter<BookRecyclerViewAdapter.Vie
             parent,
             false
         )
-        return ViewHolder(binding.root)
+        return ViewHolder(binding, binding.root)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val book = books[position]
-        holder.binding?.book = book
+        holder.setBinding(book, viewModel)
     }
 
     override fun getItemCount(): Int = books.size
 
-    fun update(value: List<BookX>) {
-        books = value
-        notifyDataSetChanged()
-    }
 
 
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding: FragmentItemBookBinding? = DataBindingUtil.bind<FragmentItemBookBinding>(view)
-
+    inner class ViewHolder(val binding: FragmentItemBookBinding, view: View) :
+        RecyclerView.ViewHolder(view) {
+        fun setBinding(book: BookX, viewModel: BookViewModel) {
+            binding.book = book
+            binding.viewModel = viewModel
+            binding.executePendingBindings()
+        }
 
     }
 }
