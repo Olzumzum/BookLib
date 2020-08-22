@@ -6,10 +6,11 @@ import com.olzumzum.booklib.model.InfoBooksByDate
 import io.reactivex.Single
 
 
-class BookServerCommunicator(val mBookApi: BookApi) {
+class BookServerCommunicator(val mBookApi: BookApi, val application: Application) {
 
 
     fun getAllBook(): Single<List<Category>> {
+        val v = application.applicationContext
         return mBookApi.getAllBooks()
             .flatMap { response ->
                 Single.just(response.categories)

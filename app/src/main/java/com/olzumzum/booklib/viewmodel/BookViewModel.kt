@@ -37,7 +37,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     lateinit var bookRepository: BookRepository
 
     init {
+
         (application as App).getViewModelSubComponent().inject(this)
+
         disposable = booksByData()
         isLoaded.value = true
     }
@@ -54,7 +56,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
             .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
                 override fun onSuccess(infoBooksByDate: InfoBooksByDate) {
                     this@BookViewModel.infoBooksByDate.value = infoBooksByDate
-                    books.value = infoBooksByDate.books
+//                    books.value = infoBooksByDate.books
 
                     //проверка данных на пустоту
                     this@BookViewModel.infoBooksByDate.checkDateNull(errorMessageId)

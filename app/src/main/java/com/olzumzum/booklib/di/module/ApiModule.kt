@@ -14,8 +14,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 @Module
 class ApiModule {
     @Provides
-    fun provideServerCommutator(bookApi: BookApi): BookServerCommunicator {
-        return BookServerCommunicator(bookApi)
+    fun provideServerCommutator(bookApi: BookApi, application: Application): BookServerCommunicator {
+        return BookServerCommunicator(bookApi, application)
     }
 
     @Provides

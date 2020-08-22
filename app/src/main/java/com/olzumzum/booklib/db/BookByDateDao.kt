@@ -11,15 +11,15 @@ import io.reactivex.Single
 
 @Dao
 interface BookByDateDao {
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertBook(book: BookX)
-
-    @Query("SELECT * FROM bookX where id = :id")
-    fun getBookX(id: Int)
-
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertInfo(infoBooksByDate: InfoBooksByDate): Int = infoBooksByDate.id
-
-    @Query("SELECT * FROM info_books_by_date where id = :id")
-    fun getIndfo(id :Int): Single<InfoBooksByDate>
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun insertBook(book: BookX)
+//
+//    @Query("SELECT * FROM bookX where id = :id")
+//    fun getBookX(id: Int)
+//
+//    @Insert(onConflict = OnConflictStrategy.IGNORE)
+//    suspend fun insertInfo(infoBooksByDate: InfoBooksByDate): Int = infoBooksByDate.id
+//
+//    @Query("SELECT * FROM info_books_by_date where id = :id")
+//    fun getIndfo(id :Int): Single<InfoBooksByDate>?
 }

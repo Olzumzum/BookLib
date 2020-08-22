@@ -14,10 +14,10 @@ data class InfoBooksByDate(
     @SerializedName("bestsellers_date")
     @ColumnInfo(name = "bestsellers_date")
     val bestsellersDate: String,
-    @SerializedName("books")
-    @ColumnInfo(name = "books")
-    @Relation(parentColumn = "id", entityColumn = "id_book")
-    val books: List<BookX>,
+//    @SerializedName("books")
+//    @ColumnInfo(name = "books")
+//    @Relation(parentColumn = "id", entityColumn = "id_book")
+//    val books: List<BookX>,
     @SerializedName("display_name")
     @ColumnInfo(name = "display_name")
     val displayName: String,

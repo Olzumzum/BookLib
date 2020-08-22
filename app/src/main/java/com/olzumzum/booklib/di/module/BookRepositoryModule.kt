@@ -14,22 +14,19 @@ class BookRepositoryModule {
 
     @Provides
     fun provideBookRepository(
-        bookServerCommunicator: BookServerCommunicator,
-        bookByDateDao: BookByDateDao
+        bookServerCommunicator: BookServerCommunicator
+        ,bookByDateDao: BookByDateDao
     ): BookRepository {
-        return BookRepository(bookServerCommunicator,
-            bookByDateDao
+        return BookRepository(bookServerCommunicator
+            , bookByDateDao
         )
     }
 
     @Provides
     fun provideNYTDatabase(application: Application): NYTDatabase {
-        return Room.databaseBuilder(
-            application,
+        return Room.databaseBuilder(application.applicationContext,
             NYTDatabase::class.java,
-            "nyt_database"
-        )
-            .build()
+            "nyt_db").build()
     }
 
     @Provides
