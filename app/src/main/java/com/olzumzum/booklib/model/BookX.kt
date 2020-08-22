@@ -10,6 +10,8 @@ data class BookX(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     val id: Int,
+    @ColumnInfo(name = "id_info")
+    val idInfo: Int,
     @SerializedName("age_group")
     @ColumnInfo(name = "age_group")
     val ageGroup: String,
