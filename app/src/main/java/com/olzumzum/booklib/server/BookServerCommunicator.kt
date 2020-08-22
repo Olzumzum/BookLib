@@ -1,5 +1,6 @@
 package com.olzumzum.booklib.server
 
+import android.app.Application
 import com.olzumzum.booklib.model.Category
 import com.olzumzum.booklib.model.InfoBooksByDate
 import io.reactivex.Single

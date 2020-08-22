@@ -9,17 +9,17 @@ import com.olzumzum.booklib.model.InfoBooksByDate
 import kotlinx.coroutines.CoroutineExceptionHandler
 
 @Database(entities = arrayOf(BookX::class, InfoBooksByDate::class), version = 1, exportSchema = false)
-abstract class BookByDateRoomDatabase: RoomDatabase() {
+abstract class NYTDatabase: RoomDatabase() {
     abstract fun bookByDateDao() : BookByDateDao
 
     companion object {
         @Volatile
-        private var INSTANCE: BookByDateRoomDatabase? = null
+        private var INSTANCE: NYTDatabase? = null
 
-        fun getDatabase(context: Context): BookByDateRoomDatabase? {
+        fun getDatabase(context: Context): NYTDatabase {
             val tempInstance = INSTANCE
             tempInstance.let {
-                return tempInstance
+                return tempInstance!!
             }
 
             val handler = CoroutineExceptionHandler { _, exception ->
@@ -29,8 +29,8 @@ abstract class BookByDateRoomDatabase: RoomDatabase() {
             synchronized(this){
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    BookByDateRoomDatabase::class.java,
-                    ""
+                    NYTDatabase::class.java,
+                    "nyt_database"
                 )
                     .build()
                 INSTANCE = instance

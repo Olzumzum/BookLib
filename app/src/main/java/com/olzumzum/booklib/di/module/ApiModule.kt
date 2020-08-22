@@ -1,5 +1,6 @@
 package com.olzumzum.booklib.di.module
 
+import android.app.Application
 import com.olzumzum.booklib.server.BookApi
 import com.olzumzum.booklib.server.BookServerCommunicator
 import dagger.Module

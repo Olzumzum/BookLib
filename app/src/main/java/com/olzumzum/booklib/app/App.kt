@@ -4,7 +4,6 @@ import android.app.Application
 import com.olzumzum.booklib.di.component.AppComponent
 import com.olzumzum.booklib.di.component.DaggerAppComponent
 import com.olzumzum.booklib.di.component.ViewModuleSubComponent
-import com.olzumzum.booklib.repository.BookRepository
 
 class App: Application() {
 
@@ -25,8 +24,10 @@ class App: Application() {
             .viewModelSubComponentBuilder()
             .build()
 
+
     }
 
     fun getAppComponent(): AppComponent = appComponent!!
     fun getViewModelSubComponent(): ViewModuleSubComponent = viewModelSubComponent!!
+
 }

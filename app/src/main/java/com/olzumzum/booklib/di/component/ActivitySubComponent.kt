@@ -15,7 +15,6 @@ interface ActivitySubComponent {
     interface Builder{
         @BindsInstance
         fun with(activity: AppCompatActivity):Builder
-
         fun build(): ActivitySubComponent
     }
 

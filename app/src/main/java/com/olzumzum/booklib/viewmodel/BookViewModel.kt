@@ -46,8 +46,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      * Получить информацию о списке бестселлеров
      * за указанную дату
      */
-    private fun booksByData(): Disposable {
-        return bookRepository.getBooksByDate()
+    private fun booksByData(): Disposable? {
+//        return null
+       return bookRepository.getBooksByDate()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {

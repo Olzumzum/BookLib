@@ -2,12 +2,15 @@ package com.olzumzum.booklib.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "info_books_by_date")
 data class InfoBooksByDate(
-
+    @ColumnInfo(name = "id")
+    @PrimaryKey(autoGenerate = true)
+    val id: Int,
     @SerializedName("bestsellers_date")
     @ColumnInfo(name = "bestsellers_date")
     val bestsellersDate: String,
