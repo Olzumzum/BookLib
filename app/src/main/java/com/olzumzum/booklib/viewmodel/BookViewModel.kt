@@ -22,8 +22,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
     private var isLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
-    //сводная информация по списку бесцеллеров
-    private val infoBooksByDate: MutableLiveData<InfoBooksByDate> = MutableLiveData()
+
 
     //список книг-бестселлеров по заданной дате
     private val books: MutableLiveData<List<BookX>> = MutableLiveData()
@@ -36,11 +35,15 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var bookRepository: BookRepository
 
+    //сводная информация по списку бесцеллеров
+    private var infoBooksByDate: LiveData<InfoBooksByDate>? = null
+
     init {
 
         (application as App).getViewModelSubComponent().inject(this)
 
-        disposable = booksByData()
+        infoBooksByDate = bookRepository.getBooksByDate()
+//        booksByData()
         isLoaded.value = true
     }
 
@@ -48,31 +51,38 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      * Получить информацию о списке бестселлеров
      * за указанную дату
      */
-    private fun booksByData(): Disposable? {
-//        return null
-       return bookRepository.getBooksByDate()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
-                override fun onSuccess(infoBooksByDate: InfoBooksByDate) {
-                    this@BookViewModel.infoBooksByDate.value = infoBooksByDate
-//                    books.value = infoBooksByDate.books
+    private fun booksByData() {
+//        val infoBooksByDate = bookRepository.getBooksByDate()
+//        this@BookViewModel.infoBooksByDate.value = infoBooksByDate.value
+//        books.value = infoBooksByDate.books
 
-                    //проверка данных на пустоту
-                    this@BookViewModel.infoBooksByDate.checkDateNull(errorMessageId)
-                    books.checkDateNull(errorMessageId)
+        //проверка данных на пустоту
+//        this@BookViewModel.infoBooksByDate.checkDateNull(errorMessageId)
+        books.checkDateNull(errorMessageId)
 
-                    isLoaded.value = false
-
-                }
-
-                override fun onError(e: Throwable) {
-                    e.printStackTrace();
-                    Log.e("MyLog", "тут ошибка")
-                    errorMessageId.value = R.string.error_data_loading
-                    isLoaded.value = false
-                }
-            })
+        isLoaded.value = false
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
+//                override fun onSuccess(infoBooksByDate: InfoBooksByDate) {
+//                    this@BookViewModel.infoBooksByDate.value = infoBooksByDate
+////                    books.value = infoBooksByDate.books
+//
+//                    //проверка данных на пустоту
+//                    this@BookViewModel.infoBooksByDate.checkDateNull(errorMessageId)
+//                    books.checkDateNull(errorMessageId)
+//
+//                    isLoaded.value = false
+//
+//                }
+//
+//                override fun onError(e: Throwable) {
+//                    e.printStackTrace();
+//                    Log.e("MyLog", "тут ошибка")
+//                    errorMessageId.value = R.string.error_data_loading
+//                    isLoaded.value = false
+//                }
+//            })
     }
 
     /**

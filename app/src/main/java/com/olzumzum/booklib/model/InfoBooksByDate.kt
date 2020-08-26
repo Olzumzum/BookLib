@@ -10,7 +10,7 @@ import com.google.gson.annotations.SerializedName
 data class InfoBooksByDate(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     @SerializedName("bestsellers_date")
     @ColumnInfo(name = "bestsellers_date")
     val bestsellersDate: String,

@@ -48,6 +48,6 @@ class ApiModule {
     }
 
     companion object {
-        private val API_URL = "https://api.nytimes.com/svc/books/v3/"
+        private const val API_URL = "https://api.nytimes.com/svc/books/v3/"
     }
 }
