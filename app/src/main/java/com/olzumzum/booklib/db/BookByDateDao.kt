@@ -14,8 +14,9 @@ interface BookByDateDao {
      * вернуть все записи информации о списках бестселлеров
      * и книгах в них
      */
-    @Query("SELECT * FROM info_books_by_date")
-     fun getAllInfoBooks(): LiveData<List<InfoWithBooks>>
+    @Transaction
+    @Query("SELECT * FROM info_books_by_date ")
+     fun getAllInfoBooks(): List<InfoWithBooks>
 
     /** вернуть информацию о списках бестселлеров и книг в них
      * по заданному периоду
@@ -32,6 +33,15 @@ interface BookByDateDao {
     @Query("SELECT count(*) FROM info_books_by_date where bestsellers_date like :period")
     suspend fun countRecord(period: String): Int
 
+    @Query("SELECT count(*) FROM bookX")
+     fun countBooks(): Int
+
+    @Query("SELECT * FROM bookX")
+    fun getBooks(): LiveData<List<BookX>>
+
+    @Query("SELECT * FROM info_books_by_date")
+    fun getAllInfo(): List<InfoBook>
+
     /** добавить информацию о списке бестселлеров */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertInfo(infoBook: InfoBook): Long
@@ -45,4 +55,7 @@ interface BookByDateDao {
      */
     @Query("DELETE FROM info_books_by_date")
     suspend fun deleteInfoBooksAll()
+
+    @Query("DELETE FROM bookX")
+    suspend fun deleteAllBooks()
 }

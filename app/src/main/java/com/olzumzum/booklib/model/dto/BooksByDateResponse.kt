@@ -11,7 +11,7 @@ data class BooksByDateResponse(
     @SerializedName("num_results")
     val num_results: Int,
     @SerializedName("results")
-    val infoBook: InfoBooksByDate,
+    val infoBooksByDate: InfoBooksByDate,
     @SerializedName("status")
     val status: String
 )

@@ -30,18 +30,4 @@ data class InfoBooksByDate(
     val publishedDateDescription: String,
     @SerializedName("updated")
     val updated: String
-) {
-    fun convert(): InfoBook {
-        return InfoBook(
-            0,
-            bestsellersDate,
-            displayName,
-            nextPublishedDate,
-            normalListEndsAt,
-            previousPublishedDate,
-            publishedDate,
-            publishedDateDescription,
-            updated
-        )
-    }
-}
+)

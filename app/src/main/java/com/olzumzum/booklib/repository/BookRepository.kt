@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.olzumzum.booklib.db.BookByDateDao
 import com.olzumzum.booklib.model.dto.Category
 import com.olzumzum.booklib.model.dto.InfoBooksByDate
+import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.model.pojo.InfoBook
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.server.BookServerCommunicator
@@ -19,17 +20,24 @@ class BookRepository(
     private val dao: BookByDateDao
 ) {
 
+    var list = mutableListOf<BookX>()
+
+    var i: InfoBooksByDate? = null
+    var idInfo: Long = 0
+
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
 
-    fun getBooksByDate(): LiveData<InfoWithBooks>? {
+    fun getInfoBook(): LiveData<InfoWithBooks>? {
         val period: String = "2020-08-01"
         deleteAll()
         refreshInfoBooks(period)
-        val info = getAll()
-
-        Log.e(TAG, "value ${info.value}")
         return dao.getInfoBooksById(period)
-//        return null
+
+    }
+
+
+    fun getBooks(): LiveData<List<BookX>>? {
+        return dao.getBooks()
     }
 
     /**
@@ -37,11 +45,13 @@ class BookRepository(
      */
     fun deleteAll() {
         GlobalScope.launch(Dispatchers.IO) {
+            dao.deleteAllBooks()
             dao.deleteInfoBooksAll()
         }
     }
 
-    private fun getAll() = dao.getAllInfoBooks()
+
+//    private fun getAll() = dao.getAllInfoBooks()
 
     /**
      * проверить, есть ли данные с таким id
@@ -51,10 +61,8 @@ class BookRepository(
         var countRecord = 0
         //если в кеш есть запись с такими данными вернуть ее
         countRecord = dao.countRecord(period)
-        Log.e(TAG, "Count of record is $countRecord")
 
         if (countRecord == 0) {
-            Log.e(TAG, "Count of record is $countRecord")
 
             //иначе сделать запрос на сервер
             //получить данные
@@ -66,18 +74,28 @@ class BookRepository(
                 .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
                     override fun onSuccess(info: InfoBooksByDate) {
                         val job = GlobalScope.launch(Dispatchers.IO) {
+                            i = info
+
+                            val infoBook: InfoBook = InfoBook(
+                                0,
+                                bestsellersDate = info.bestsellersDate,
+                                displayName = info.displayName,
+                                nextPublishedDate = info.nextPublishedDate,
+                                normalListEndsAt = info.normalListEndsAt,
+                                previousPublishedDate = info.previousPublishedDate,
+                                publishedDate = info.publishedDate,
+                                publishedDateDescription = info.publishedDateDescription,
+                                updated = info.updated
+                            )
+
                             //вставить информацию о списке бестселлеров
-                           val idInfo =  dao.insertInfo(info.convert())
-                           Log.e(TAG, "id info ${idInfo}")
+                            idInfo = dao.insertInfo(infoBook)
 
                             //вставить информацию о книгах из списка бестселлеров
                             info.books.forEach { book ->
                                 book.idInfo = idInfo
-                                val id = dao.insertBook(book)
-                                Log.e(TAG, "id info $id")
-
+                                dao.insertBook(book)
                             }
-//                            Log.e(TAG, "value list ${dao.getAllInfoBooks().size}")
                         }
                     }
 

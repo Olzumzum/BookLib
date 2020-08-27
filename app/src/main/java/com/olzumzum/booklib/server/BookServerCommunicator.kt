@@ -26,7 +26,7 @@ class BookServerCommunicator(private val mBookApi: BookApi, private val applicat
     fun getBooksByDate(): Single<InfoBooksByDate> {
         return mBookApi.getBooksByDate()
             .flatMap { response ->
-                Single.just(response.infoBook)
+                Single.just(response.infoBooksByDate)
             }
     }
 }

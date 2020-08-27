@@ -7,7 +7,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.pojo.BookX
-import com.olzumzum.booklib.model.pojo.InfoBook
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.booklib.ui.listbydata.NavigatorBooks
@@ -21,7 +20,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     //сводная информация по списку бесцеллеров
     private var infoBook: LiveData<InfoWithBooks>? = null
     //список книг-бестселлеров по заданной дате
-    private val books: MutableLiveData<List<BookX>> = MutableLiveData()
+    private var books: LiveData<List<BookX>>? = null
 
     //для отображения одного элемента
     private lateinit var navigatorBooks: NavigatorBooks
@@ -36,8 +35,11 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun getBooksByDate(){
-        infoBook = bookRepository.getBooksByDate()
+        infoBook = bookRepository.getInfoBook()
         infoBook!!.checkDateNull(errorMessageId)
+//        Log.e("MyLog", " books in info ${infoBook!!.value?.books?.size}")
+        books = bookRepository.getBooks()
+        books?.checkDateNull(errorMessageId)
     }
     /**
      * вернуть информацию о списке бестселлеров
@@ -46,7 +48,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     fun getResults(): LiveData<InfoWithBooks>? = infoBook
 
 
-    fun getBooks(): LiveData<List<BookX>> = books
+    fun getBooks(): LiveData<List<BookX>>? = books
 
     fun getErrorMessage(): LiveData<Int> {
         return errorMessageId

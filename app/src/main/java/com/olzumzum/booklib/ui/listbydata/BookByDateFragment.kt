@@ -64,7 +64,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
         //обработка нажатия на элемент списка
         viewModel.setNavigatorBooks(this)
-        viewModel.getBooks().observe(viewLifecycleOwner, Observer {books ->
+        viewModel.getBooks()?.observe(viewLifecycleOwner, Observer {books ->
             binding.booksByDateLsit.adapter = BookRecyclerViewAdapter(books, viewModel)
         })
 
