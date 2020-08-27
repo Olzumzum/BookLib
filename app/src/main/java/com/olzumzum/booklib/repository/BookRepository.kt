@@ -21,15 +21,15 @@ class BookRepository(
 
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
 
-    fun getBooksByDate(): LiveData<InfoBook>? {
+    fun getBooksByDate(): LiveData<InfoWithBooks>? {
         val period: String = "2020-08-01"
         deleteAll()
         refreshInfoBooks(period)
         val info = getAll()
 
         Log.e(TAG, "value ${info.value}")
-//        return dao.getInfoBooksById(period)
-        return null
+        return dao.getInfoBooksById(period)
+//        return null
     }
 
     /**

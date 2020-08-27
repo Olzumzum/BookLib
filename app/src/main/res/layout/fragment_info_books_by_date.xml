@@ -5,7 +5,7 @@
 
         <variable
             name="results"
-            type="com.olzumzum.booklib.model.pojo.InfoBook" />
+            type="com.olzumzum.booklib.model.pojo.InfoWithBooks" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -45,7 +45,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:textSize="15dp"
-                        android:text="@{results.displayName}" />
+                        android:text="@{results.info.displayName}" />
 
                     <View
                         android:id="@+id/divider"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/fragment_info_text_size"
-                    android:text="@{results.bestsellersDate}" />
+                    android:text="@{results.info.bestsellersDate}" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -79,7 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/fragment_info_text_size"
-                    android:text="@{results.publishedDate}" />
+                    android:text="@{results.info.publishedDate}" />
             </LinearLayout>
 
             <LinearLayout
@@ -102,7 +102,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorAccent"
                     android:textStyle="bold"
-                    android:text="@{results.updated}" />
+                    android:text="@{results.info.updated}" />
             </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
