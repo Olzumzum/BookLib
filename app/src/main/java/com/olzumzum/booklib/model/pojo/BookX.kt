@@ -11,7 +11,7 @@ data class BookX(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
     @ColumnInfo(name = "id_info")
-    val idInfo: Int,
+    var idInfo: Long,
     @SerializedName("age_group")
     @ColumnInfo(name = "age_group")
     val ageGroup: String,

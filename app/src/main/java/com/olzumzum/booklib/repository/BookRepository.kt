@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.olzumzum.booklib.db.BookByDateDao
 import com.olzumzum.booklib.model.dto.Category
+import com.olzumzum.booklib.model.dto.InfoBooksByDate
 import com.olzumzum.booklib.model.pojo.InfoBook
+import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.server.BookServerCommunicator
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -23,7 +25,9 @@ class BookRepository(
         val period: String = "2020-08-01"
         deleteAll()
         refreshInfoBooks(period)
-        Log.e(TAG, "text ")
+        val info = getAll()
+
+        Log.e(TAG, "value ${info.value}")
 //        return dao.getInfoBooksById(period)
         return null
     }
@@ -37,16 +41,7 @@ class BookRepository(
         }
     }
 
-    private fun getAll(){
-        GlobalScope.launch {
-            val list = dao.getAllInfoBooks()
-            list.forEach {
-                Log.e(TAG, "$it")
-            }
-
-            Log.e(TAG, "value ${list.size}")
-        }
-    }
+    private fun getAll() = dao.getAllInfoBooks()
 
     /**
      * проверить, есть ли данные с таким id
@@ -68,11 +63,21 @@ class BookRepository(
             val disposable = service.getBooksByDate()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<InfoBook>() {
-                    override fun onSuccess(info: InfoBook) {
+                .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
+                    override fun onSuccess(info: InfoBooksByDate) {
                         val job = GlobalScope.launch(Dispatchers.IO) {
-                            dao.insertInfo(info)
-                            Log.e(TAG, "value list ${dao.getAllInfoBooks().size}")
+                            //вставить информацию о списке бестселлеров
+                           val idInfo =  dao.insertInfo(info.convert())
+                           Log.e(TAG, "id info ${idInfo}")
+
+                            //вставить информацию о книгах из списка бестселлеров
+                            info.books.forEach { book ->
+                                book.idInfo = idInfo
+                                val id = dao.insertBook(book)
+                                Log.e(TAG, "id info $id")
+
+                            }
+//                            Log.e(TAG, "value list ${dao.getAllInfoBooks().size}")
                         }
                     }
 

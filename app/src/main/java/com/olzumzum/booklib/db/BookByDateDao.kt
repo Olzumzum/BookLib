@@ -2,6 +2,7 @@ package com.olzumzum.booklib.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.model.pojo.InfoBook
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
 
@@ -9,21 +10,39 @@ import com.olzumzum.booklib.model.pojo.InfoWithBooks
 @Dao
 interface BookByDateDao {
 
+    /**
+     * вернуть все записи информации о списках бестселлеров
+     * и книгах в них
+     */
     @Query("SELECT * FROM info_books_by_date")
-    suspend fun getAllInfoBooks(): List<InfoWithBooks>
+     fun getAllInfoBooks(): LiveData<List<InfoWithBooks>>
 
+    /** вернуть информацию о списках бестселлеров и книг в них
+     * по заданному периоду
+     */
     @Query("SELECT * FROM info_books_by_date where bestsellers_date like :period ")
     fun getInfoBooksById(period: String): LiveData<InfoWithBooks>
 
     @Query("SELECT Exists ( SELECT * FROM info_books_by_date where bestsellers_date like :period)")
     suspend fun availabilityRecord(period: String): Int
 
+    /** вернуть количество записей в таблице информации о списках бестселлеров
+     * по указанному периоду
+     */
     @Query("SELECT count(*) FROM info_books_by_date where bestsellers_date like :period")
     suspend fun countRecord(period: String): Int
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertInfo(infoWithBooks: InfoBook): Long
+    /** добавить информацию о списке бестселлеров */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertInfo(infoBook: InfoBook): Long
 
+    /** добавить книги из списка бестселлеров */
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun insertBook(book: BookX): Long
+
+    /** очистить таблицы информации о списках бестселлеров
+     * и книг в этих списках
+     */
     @Query("DELETE FROM info_books_by_date")
     suspend fun deleteInfoBooksAll()
 }

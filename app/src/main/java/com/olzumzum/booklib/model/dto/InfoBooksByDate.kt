@@ -4,13 +4,16 @@ import androidx.room.ColumnInfo
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import com.olzumzum.booklib.model.pojo.BookX
+import com.olzumzum.booklib.model.pojo.InfoBook
 import java.io.Serializable
 
 /**
  * информация о книгах-бестселлерах
  * по указанной дате, приходящая с сервера
  */
-data class InfoBooksByDate (
+data class InfoBooksByDate(
+    @SerializedName("books")
+    val books: List<BookX>,
     @SerializedName("bestsellers_date")
     val bestsellersDate: String,
     @SerializedName("display_name")
@@ -27,4 +30,18 @@ data class InfoBooksByDate (
     val publishedDateDescription: String,
     @SerializedName("updated")
     val updated: String
-)
+) {
+    fun convert(): InfoBook {
+        return InfoBook(
+            0,
+            bestsellersDate,
+            displayName,
+            nextPublishedDate,
+            normalListEndsAt,
+            previousPublishedDate,
+            publishedDate,
+            publishedDateDescription,
+            updated
+        )
+    }
+}
