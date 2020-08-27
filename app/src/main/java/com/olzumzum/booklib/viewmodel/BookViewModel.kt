@@ -36,10 +36,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getBooksByDate(){
         infoBook = bookRepository.getInfoBook()
-        infoBook!!.checkDateNull(errorMessageId)
-//        Log.e("MyLog", " books in info ${infoBook!!.value?.books?.size}")
+//        infoBook!!.checkDateNull(errorMessageId)
         books = bookRepository.getBooks()
-        books?.checkDateNull(errorMessageId)
+//        books?.checkDateNull(errorMessageId)
     }
     /**
      * вернуть информацию о списке бестселлеров
