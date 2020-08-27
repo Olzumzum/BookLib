@@ -1,6 +1,5 @@
 package com.olzumzum.booklib.utils
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
@@ -8,7 +7,6 @@ import androidx.databinding.BindingConversion
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
-import com.olzumzum.booklib.model.BookX
 import com.squareup.picasso.Picasso
 
 fun LiveData<out Any>.checkDateNull(er: MutableLiveData<Int>){

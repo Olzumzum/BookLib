@@ -5,17 +5,12 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
-import com.olzumzum.booklib.model.BookX
-import com.olzumzum.booklib.model.InfoBooksByDate
+import com.olzumzum.booklib.model.pojo.BookX
+import com.olzumzum.booklib.model.pojo.InfoBook
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.booklib.ui.listbydata.NavigatorBooks
 import com.olzumzum.booklib.utils.checkDateNull
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableSingleObserver
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
 class BookViewModel(application: Application) : AndroidViewModel(application) {
@@ -23,7 +18,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private var isLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     //сводная информация по списку бесцеллеров
-    private var infoBooksByDate: LiveData<InfoBooksByDate>? = null
+    private var infoBook: LiveData<InfoBook>? = null
     //список книг-бестселлеров по заданной дате
     private val books: MutableLiveData<List<BookX>> = MutableLiveData()
 
@@ -40,14 +35,14 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
 
     fun getBooksByDate(){
-        infoBooksByDate = bookRepository.getBooksByDate()
-        infoBooksByDate!!.checkDateNull(errorMessageId)
+        infoBook = bookRepository.getBooksByDate()
+        infoBook!!.checkDateNull(errorMessageId)
     }
     /**
      * вернуть информацию о списке бестселлеров
      * по указанной дате
      */
-    fun getResults(): LiveData<InfoBooksByDate>? = infoBooksByDate
+    fun getResults(): LiveData<InfoBook>? = infoBook
 
 
     fun getBooks(): LiveData<List<BookX>> = books

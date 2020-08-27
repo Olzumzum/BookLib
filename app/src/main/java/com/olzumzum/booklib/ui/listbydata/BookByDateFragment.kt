@@ -1,31 +1,22 @@
 package com.olzumzum.booklib.ui.listbydata
 
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
-import androidx.databinding.BindingConversion
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.DividerItemDecoration
 import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
-import com.olzumzum.booklib.model.BookX
+import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.ui.book_full_info.BookFullInfoFragment
 import com.olzumzum.booklib.viewmodel.BookViewModel
-import com.olzumzum.booklib.viewmodel.CategoriesViewModel
-import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_book_by_date_list.*
 import javax.inject.Inject
 

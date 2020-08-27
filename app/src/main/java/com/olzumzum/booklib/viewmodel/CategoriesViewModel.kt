@@ -7,7 +7,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
-import com.olzumzum.booklib.model.Category
+import com.olzumzum.booklib.model.dto.Category
 import com.olzumzum.booklib.repository.BookRepository
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable

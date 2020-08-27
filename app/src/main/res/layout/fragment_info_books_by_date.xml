@@ -5,7 +5,7 @@
 
         <variable
             name="results"
-            type="com.olzumzum.booklib.model.InfoBooksByDate" />
+            type="com.olzumzum.booklib.model.pojo.InfoBook" />
     </data>
 
     <androidx.cardview.widget.CardView

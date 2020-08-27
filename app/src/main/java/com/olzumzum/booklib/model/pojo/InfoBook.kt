@@ -1,4 +1,4 @@
-package com.olzumzum.booklib.model
+package com.olzumzum.booklib.model.pojo
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -7,7 +7,7 @@ import androidx.room.Relation
 import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "info_books_by_date")
-data class InfoBooksByDate(
+data class InfoBook(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
     val id: Long,

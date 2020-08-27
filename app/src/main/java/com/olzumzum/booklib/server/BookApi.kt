@@ -1,7 +1,7 @@
 package com.olzumzum.booklib.server
 
-import com.olzumzum.booklib.model.CategoriesResponse
-import com.olzumzum.booklib.model.BooksByDateResponse
+import com.olzumzum.booklib.model.dto.CategoriesResponse
+import com.olzumzum.booklib.model.dto.BooksByDateResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 

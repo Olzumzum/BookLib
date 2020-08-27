@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.olzumzum.booklib.R
-import com.olzumzum.booklib.model.Category
+import com.olzumzum.booklib.model.dto.Category
 import kotlinx.android.synthetic.main.item_category_bestseller.view.*
 
 class CategoriesAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {

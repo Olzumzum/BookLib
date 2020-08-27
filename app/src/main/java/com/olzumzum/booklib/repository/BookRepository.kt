@@ -3,10 +3,9 @@ package com.olzumzum.booklib.repository
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.olzumzum.booklib.db.BookByDateDao
-import com.olzumzum.booklib.model.Category
-import com.olzumzum.booklib.model.InfoBooksByDate
+import com.olzumzum.booklib.model.dto.Category
+import com.olzumzum.booklib.model.pojo.InfoBook
 import com.olzumzum.booklib.server.BookServerCommunicator
-import com.olzumzum.booklib.utils.checkDateNull
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.observers.DisposableSingleObserver
@@ -20,11 +19,13 @@ class BookRepository(
 
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
 
-    fun getBooksByDate(): LiveData<InfoBooksByDate> {
+    fun getBooksByDate(): LiveData<InfoBook>? {
         val period: String = "2020-08-01"
+        deleteAll()
         refreshInfoBooks(period)
         Log.e(TAG, "text ")
-        return dao.getInfoBooksById(period)
+//        return dao.getInfoBooksById(period)
+        return null
     }
 
     /**
@@ -67,8 +68,8 @@ class BookRepository(
             val disposable = service.getBooksByDate()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
-                    override fun onSuccess(info: InfoBooksByDate) {
+                .subscribeWith(object : DisposableSingleObserver<InfoBook>() {
+                    override fun onSuccess(info: InfoBook) {
                         val job = GlobalScope.launch(Dispatchers.IO) {
                             dao.insertInfo(info)
                             Log.e(TAG, "value list ${dao.getAllInfoBooks().size}")

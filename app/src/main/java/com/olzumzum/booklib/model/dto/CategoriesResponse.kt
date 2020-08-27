@@ -1,4 +1,4 @@
-package com.olzumzum.booklib.model
+package com.olzumzum.booklib.model.dto
 
 import com.google.gson.annotations.SerializedName
 

@@ -6,7 +6,7 @@
 
         <variable
             name="book"
-            type="com.olzumzum.booklib.model.BookX" />
+            type="com.olzumzum.booklib.model.pojo.BookX" />
 
     </data>
 

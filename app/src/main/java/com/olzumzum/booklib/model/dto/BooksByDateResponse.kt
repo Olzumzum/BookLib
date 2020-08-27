@@ -1,6 +1,7 @@
-package com.olzumzum.booklib.model
+package com.olzumzum.booklib.model.dto
 
 import com.google.gson.annotations.SerializedName
+import com.olzumzum.booklib.model.pojo.InfoBook
 
 data class BooksByDateResponse(
     @SerializedName("copyright")
@@ -10,7 +11,7 @@ data class BooksByDateResponse(
     @SerializedName("num_results")
     val num_results: Int,
     @SerializedName("results")
-    val infoBooksByDate: InfoBooksByDate,
+    val infoBook: InfoBook,
     @SerializedName("status")
     val status: String
 )

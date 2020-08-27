@@ -4,9 +4,8 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.olzumzum.booklib.databinding.FragmentItemBookBinding
-import com.olzumzum.booklib.model.BookX
+import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.viewmodel.BookViewModel
 
 

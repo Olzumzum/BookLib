@@ -1,4 +1,4 @@
-package com.olzumzum.booklib.model
+package com.olzumzum.booklib.model.pojo
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
