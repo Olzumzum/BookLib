@@ -28,8 +28,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     @Inject
     lateinit var viewModel: BookViewModel
 
-    private var columnCount = 1
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.application as App).getAppComponent().activitySubComponentBuilder()

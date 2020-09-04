@@ -67,4 +67,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         this@BookViewModel.navigatorBooks = navigatorBooks
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        bookRepository.clear()
+    }
+
 }

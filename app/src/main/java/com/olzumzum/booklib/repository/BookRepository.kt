@@ -12,6 +12,7 @@ import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.server.BookServerCommunicator
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.*
@@ -21,17 +22,23 @@ class BookRepository(
     private val dao: BookByDateDao
 ) {
 
+    private val disposable: CompositeDisposable = CompositeDisposable()
+
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
 
+    /**
+     * вернуть информацию о списке бестселлеров
+     */
     fun getInfoBook(): LiveData<InfoWithBooks>? {
         val period: String = "2020-08-01"
         refreshInfoBooks(period)
-
         return dao.getInfoBooksById(period)
 
     }
 
-
+    /**
+     * вернуть список бестселлеров
+     */
     fun getBooks(): LiveData<List<BookX>>? {
         return dao.getBooks()
     }
@@ -45,9 +52,6 @@ class BookRepository(
             dao.deleteInfoBooksAll()
         }
     }
-
-
-//    private fun getAll() = dao.getAllInfoBooks()
 
     /**
      * проверить, есть ли данные с таким id
@@ -64,38 +68,47 @@ class BookRepository(
             //получить данные
             //сохранить их в кеш
             //вернуть данные из кеша
-            val disposable = service.getBooksByDate()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
-                    override fun onSuccess(info: InfoBooksByDate) {
-                        val job = GlobalScope.launch(Dispatchers.IO) {
-                            val infoBook: InfoBook = InfoBook(
-                                0,
-                                bestsellersDate = info.bestsellersDate,
-                                displayName = info.displayName,
-                                nextPublishedDate = info.nextPublishedDate,
-                                normalListEndsAt = info.normalListEndsAt,
-                                previousPublishedDate = info.previousPublishedDate,
-                                publishedDate = info.publishedDate,
-                                publishedDateDescription = info.publishedDateDescription,
-                                updated = info.updated
-                            )
+            disposable.add(
+                service.getBooksByDate()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
+                        override fun onSuccess(info: InfoBooksByDate) {
+                            val job = GlobalScope.launch(Dispatchers.IO) {
+                                val infoBook: InfoBook = InfoBook(
+                                    0,
+                                    bestsellersDate = info.bestsellersDate,
+                                    displayName = info.displayName,
+                                    nextPublishedDate = info.nextPublishedDate,
+                                    normalListEndsAt = info.normalListEndsAt,
+                                    previousPublishedDate = info.previousPublishedDate,
+                                    publishedDate = info.publishedDate,
+                                    publishedDateDescription = info.publishedDateDescription,
+                                    updated = info.updated
+                                )
 
-                            //вставить информацию о книгах из списка бестселлеров
-                            info.books.forEach { book ->
-                                book.idInfo = dao.insertInfo(infoBook)
-                                dao.insertBook(book)
+                                //вставить информацию о книгах из списка бестселлеров
+                                info.books.forEach { book ->
+                                    book.idInfo = dao.insertInfo(infoBook)
+                                    dao.insertBook(book)
+                                }
                             }
                         }
-                    }
 
-                    override fun onError(e: Throwable) {
-                        Log.e(TAG, "Data loading error, ${e.message}")
-                        throw e
-                    }
-                })
+                        override fun onError(e: Throwable) {
+                            Log.e(TAG, "Data loading error, ${e.message}")
+                            throw e
+                        }
+                    })
+            )
         }
+    }
+
+    /**
+     * отписаться от всех источников
+     */
+    fun clear(){
+        disposable.dispose()
     }
 
     companion object {
