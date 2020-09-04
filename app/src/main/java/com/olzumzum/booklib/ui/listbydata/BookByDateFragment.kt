@@ -55,18 +55,20 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
+        recyclerView.addItemDecoration(RecyclerDivider(context!!))
 
         binding.booksByDateLsit.layoutManager = LinearLayoutManager(context)
 
-        recyclerView.addItemDecoration(RecyclerDivider(context!!))
 
         //обработка нажатия на элемент списка
         viewModel.setNavigatorBooks(this)
-        viewModel.getBooks()?.observe(viewLifecycleOwner, Observer {books ->
-            binding.booksByDateLsit.adapter = BookRecyclerViewAdapter(books, viewModel)
-        })
 
-        viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer {message ->
+        if (savedInstanceState == null)
+            viewModel.getBooks()?.observe(viewLifecycleOwner, Observer { books ->
+                binding.booksByDateLsit.adapter = BookRecyclerViewAdapter(books, viewModel)
+            })
+
+        viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer { message ->
             showErrorMessage(message)
         })
 
@@ -75,8 +77,9 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         return view
     }
 
-    fun showErrorMessage(idResource: Int){
-        Snackbar.make(fragment_book_by_date_layout, getString(idResource), Snackbar.LENGTH_LONG).show()
+    fun showErrorMessage(idResource: Int) {
+        Snackbar.make(fragment_book_by_date_layout, getString(idResource), Snackbar.LENGTH_LONG)
+            .show()
     }
 
 
@@ -87,8 +90,8 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
     override fun onItemClicked(book: BookX) {
         val bookFullInfoFragment = BookFullInfoFragment()
-        getActivity()?.getSupportFragmentManager()?.beginTransaction()
-            ?.replace(R.id.root_layout, bookFullInfoFragment,"findThisFragment")
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.root_layout, bookFullInfoFragment, "findThisFragment")
             ?.addToBackStack(null)
             ?.commit();
     }

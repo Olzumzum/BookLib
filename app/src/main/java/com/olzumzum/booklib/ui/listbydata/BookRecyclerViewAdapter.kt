@@ -36,7 +36,7 @@ class BookRecyclerViewAdapter(
 
 
 
-    inner class ViewHolder(val binding: FragmentItemBookBinding, view: View) :
+    inner class ViewHolder(private val binding: FragmentItemBookBinding, view: View) :
         RecyclerView.ViewHolder(view) {
         fun setBinding(book: BookX, viewModel: BookViewModel) {
             binding.book = book
