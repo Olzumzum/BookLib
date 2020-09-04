@@ -2,6 +2,7 @@ package com.olzumzum.booklib.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.db.BookByDateDao
 import com.olzumzum.booklib.model.dto.Category
 import com.olzumzum.booklib.model.dto.InfoBooksByDate
@@ -20,17 +21,12 @@ class BookRepository(
     private val dao: BookByDateDao
 ) {
 
-    var list = mutableListOf<BookX>()
-
-    var i: InfoBooksByDate? = null
-    var idInfo: Long = 0
-
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
 
     fun getInfoBook(): LiveData<InfoWithBooks>? {
         val period: String = "2020-08-01"
-        deleteAll()
         refreshInfoBooks(period)
+
         return dao.getInfoBooksById(period)
 
     }
@@ -74,8 +70,6 @@ class BookRepository(
                 .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {
                     override fun onSuccess(info: InfoBooksByDate) {
                         val job = GlobalScope.launch(Dispatchers.IO) {
-                            i = info
-
                             val infoBook: InfoBook = InfoBook(
                                 0,
                                 bestsellersDate = info.bestsellersDate,
@@ -88,12 +82,9 @@ class BookRepository(
                                 updated = info.updated
                             )
 
-                            //вставить информацию о списке бестселлеров
-                            idInfo = dao.insertInfo(infoBook)
-
                             //вставить информацию о книгах из списка бестселлеров
                             info.books.forEach { book ->
-                                book.idInfo = idInfo
+                                book.idInfo = dao.insertInfo(infoBook)
                                 dao.insertBook(book)
                             }
                         }
