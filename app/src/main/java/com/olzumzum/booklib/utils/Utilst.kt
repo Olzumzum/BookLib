@@ -35,3 +35,10 @@ fun loadImage(imageView: ImageView, url: String?){
         .fit()
         .into(imageView)
 }
+
+@BindingConversion
+fun isAbsentText(text: String?): String{
+    return if(text == null || text == "")
+        "No value"
+    else text
+}
