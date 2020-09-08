@@ -9,7 +9,7 @@ import com.google.gson.annotations.SerializedName
 data class BookX(
     @ColumnInfo(name = "id")
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Long,
     @ColumnInfo(name = "id_info")
     var idInfo: Long,
     @SerializedName("age_group")

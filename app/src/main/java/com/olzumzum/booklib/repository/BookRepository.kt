@@ -36,6 +36,10 @@ class BookRepository(
 
     }
 
+    fun getBookByData(id: Long): LiveData<BookX>?{
+        return dao.getBookById(id)
+    }
+
     /**
      * вернуть список бестселлеров
      */

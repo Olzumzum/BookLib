@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
+import com.olzumzum.booklib.databinding.FragmentBookFullInfoBinding
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import javax.inject.Inject
 
@@ -32,7 +33,7 @@ class BookFullInfoFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding: FragmentBookByDateListBinding = DataBindingUtil.inflate(
+        val binding: FragmentBookFullInfoBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_book_full_info,
             container,

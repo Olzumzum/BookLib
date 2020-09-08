@@ -39,6 +39,9 @@ interface BookByDateDao {
     @Query("SELECT * FROM bookX")
     fun getBooks(): LiveData<List<BookX>>
 
+    @Query("SELECT * FROM bookX where id = :id")
+    fun getBookById(id: Long): LiveData<BookX>?
+
     @Query("SELECT * FROM info_books_by_date")
     fun getAllInfo(): List<InfoBook>
 

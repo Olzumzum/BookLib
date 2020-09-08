@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.olzumzum.booklib.viewmodel.BookViewModel" />
         <variable
             name="book"
             type="com.olzumzum.booklib.model.pojo.BookX" />
@@ -24,8 +27,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/imageView"
-                bind:imageUrl="@{book.bookImage}"
+                android:id="@+id/imageVie"
+                bind:imageUrl="@{viewModel.book.bookImage}"
                 android:layout_width="90dp"
                 android:layout_height="110dp"
                 android:layout_marginTop="3dp"
@@ -54,7 +57,7 @@
                         android:id="@+id/title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{book.title}"
+                        android:text="@{viewModel.book.title}"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -73,7 +76,7 @@
                         android:id="@+id/author"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{book.author}"
+                        android:text="@{viewModel.book.author}"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -92,7 +95,7 @@
                         android:id="@+id/rank"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(book.rank)}" />
+                        android:text="@{Integer.toString(viewModel.book.rank)}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,7 +113,7 @@
                         android:id="@+id/rank_last_week"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(book.rankLastWeek)}" />
+                        android:text="@{Integer.toString(viewModel.book.rankLastWeek)}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -128,7 +131,7 @@
                         android:id="@+id/weeks_on_list"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@{Integer.toString(book.weeksOnList)}" />
+                        android:text="@{Integer.toString(viewModel.book.weeksOnList)}" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -137,37 +140,37 @@
             android:id="@+id/description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.description}" />
+            android:text="@{viewModel.book.description}" />
 
         <TextView
             android:id="@+id/age_group"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.ageGroup}" />
+            android:text="@{viewModel.book.ageGroup}" />
 
         <TextView
             android:id="@+id/book_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.price}" />
+            android:text="@{Integer.toString(viewModel.book.price)}" />
 
         <TextView
             android:id="@+id/publisher"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.publisher}" />
+            android:text="@{viewModel.book.publisher}" />
 
         <TextView
             android:id="@+id/contributor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.contributor}" />
+            android:text="@{viewModel.book.contributor}" />
 
         <TextView
             android:id="@+id/contributor_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.contributorNote}" />
+            android:text="@{viewModel.book.contributorNote}" />
 
         <TextView
             android:layout_width="match_parent"
@@ -178,7 +181,7 @@
             android:id="@+id/sunday_review_link"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{book.sundayReviewLink}" />
+            android:text="@{viewModel.book.sundayReviewLink}" />
 
         <LinearLayout
             android:layout_width="match_parent"

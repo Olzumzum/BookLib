@@ -21,6 +21,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private var infoBook: LiveData<InfoWithBooks>? = null
     //список книг-бестселлеров по заданной дате
     private var books: LiveData<List<BookX>>? = null
+     var book: LiveData<BookX>? = null
 
     //для отображения одного элемента
     private lateinit var navigatorBooks: NavigatorBooks
@@ -57,8 +58,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
 
 
-    fun itemOnClick(book: BookX) {
-        Log.e("Logg", "itemOnClick")
+    fun itemOnClick(_book: BookX) {
+        Log.e("Logg", "itemOnClick ${_book.id}")
+        book = bookRepository.getBookByData(_book.id)
         navigatorBooks.onItemClicked(book)
     }
 

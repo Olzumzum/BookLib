@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
@@ -88,7 +89,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         fun newInstance(columnCount: Int) = BookByDateFragment()
     }
 
-    override fun onItemClicked(book: BookX) {
+    override fun onItemClicked(book: LiveData<BookX>?) {
         val bookFullInfoFragment = BookFullInfoFragment()
         activity?.supportFragmentManager?.beginTransaction()
             ?.replace(R.id.root_layout, bookFullInfoFragment, "findThisFragment")

@@ -27,7 +27,7 @@ fun convertBooleanToVisibility(visible: Boolean): Int{
  * Загрузка изображений
  */
 @BindingAdapter("imageUrl")
-fun loadImage(imageView: ImageView, url: String){
+fun loadImage(imageView: ImageView, url: String?){
     Picasso.get()
         .load(url)
         .placeholder(R.color.colorPrimaryDark)
