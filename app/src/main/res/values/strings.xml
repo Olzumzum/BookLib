@@ -19,5 +19,7 @@
     <string name="fragment_item_book_weeks_on_list">Weeks on list</string>
     <string name="fragment_book_full_info_link_review">Link to review</string>
     <string name="error_get_data_for_book">Unable to get book data</string>
+    <string name="book_uri">book uri</string>
+    <string name="first_chapter_link">first chapter link</string>
 
 </resources>
