@@ -14,6 +14,7 @@
     </data>
 
     <LinearLayout
+        android:id="@+id/fragment_book_full_info"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
@@ -189,16 +190,17 @@
             android:layout_height="wrap_content">
 
             <Button
-                android:id="@+id/book_uri"
+                android:id="@+id/book_uri_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/book_uri" />
 
             <Button
-                android:id="@+id/first_chapter_link"
+                android:id="@+id/first_chapter_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/first_chapter_link" />
+                android:text="@string/first_chapter_link"
+               />
         </LinearLayout>
     </LinearLayout>
 </layout>
