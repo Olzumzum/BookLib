@@ -43,6 +43,8 @@ class BookFullInfoFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+
         val binding: FragmentBookFullInfoBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_book_full_info,

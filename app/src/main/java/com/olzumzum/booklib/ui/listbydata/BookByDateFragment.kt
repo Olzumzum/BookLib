@@ -11,6 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
@@ -29,6 +31,8 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     @Inject
     lateinit var viewModel: BookViewModel
 
+    private var navController: NavController? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         (activity?.application as App).getAppComponent().activitySubComponentBuilder()
@@ -42,7 +46,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         val binding: FragmentBookByDateListBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.fragment_book_by_date_list,
@@ -73,12 +76,16 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
             showErrorMessage(message)
         })
 
-
-
         return view
     }
 
-    fun showErrorMessage(idResource: Int) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        //навигация - для открытия полной информации по элементу списка
+        navController = Navigation.findNavController(view)
+    }
+
+    private fun showErrorMessage(idResource: Int) {
         Snackbar.make(fragment_book_by_date_layout, getString(idResource), Snackbar.LENGTH_LONG)
             .show()
     }
@@ -90,11 +97,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     }
 
     override fun onItemClicked(book: LiveData<BookX>?) {
-        val bookFullInfoFragment = BookFullInfoFragment()
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.root_layout, bookFullInfoFragment, "findThisFragment")
-            ?.addToBackStack(null)
-            ?.commit();
+        navController?.navigate(R.id.action_bookByDateFragment_to_bookFullInfoFragment)
     }
 
 }

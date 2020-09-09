@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/bookByDateFragment">
+
+    <fragment
+        android:id="@+id/bookFullInfoFragment"
+        android:name="com.olzumzum.booklib.ui.book_full_info.BookFullInfoFragment"
+        android:label="BookFullInfoFragment"
+        tools:layout="@layout/fragment_book_full_info"
+        />
+    <fragment
+        android:id="@+id/bookByDateFragment"
+        android:name="com.olzumzum.booklib.ui.listbydata.BookByDateFragment"
+        android:label="BookByDateFragment"
+        tools:layout="@layout/fragment_book_by_date_list"
+        >
+        <action
+            android:id="@+id/action_bookByDateFragment_to_bookFullInfoFragment"
+            app:destination="@id/bookFullInfoFragment" />
+    </fragment>
+</navigation>
