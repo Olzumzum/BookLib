@@ -3,10 +3,13 @@ package com.olzumzum.booklib.ui.book_full_info
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -35,6 +38,9 @@ class BookFullInfoFragment : Fragment() {
             .with(activity = activity as AppCompatActivity)
             .build()
             .inject(this)
+
+        (activity as AppCompatActivity).supportActionBar?.setDisplayShowHomeEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -73,6 +79,8 @@ class BookFullInfoFragment : Fragment() {
             openLink(firstChapterLink, R.string.error_link_source)
         }
 
+
+
         return view
     }
 
@@ -88,6 +96,7 @@ class BookFullInfoFragment : Fragment() {
         } else
             showErrorMessage(idErrorMessage)
     }
+
 
 
 }

@@ -10,7 +10,13 @@
         android:name="com.olzumzum.booklib.ui.book_full_info.BookFullInfoFragment"
         android:label="BookFullInfoFragment"
         tools:layout="@layout/fragment_book_full_info"
-        />
+        >
+        <action
+            android:id="@+id/action_bookFullInfoFragment_to_bookByDateFragment"
+            app:destination="@id/bookByDateFragment"
+            app:popUpTo="@id/bookByDateFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/bookByDateFragment"
         android:name="com.olzumzum.booklib.ui.listbydata.BookByDateFragment"
