@@ -30,7 +30,6 @@ class BookRepository(
      * вернуть информацию о списке бестселлеров
      */
     fun getInfoBook(period: String): LiveData<InfoWithBooks>? {
-//        val period: String =  "2020-08-01"
         refreshInfoBooks(period)
         return dao.getInfoBooksById(period)
 
@@ -69,7 +68,7 @@ class BookRepository(
             //сохранить их в кеш
             //вернуть данные из кеша
             disposable.add(
-                service.getBooksByDate()
+                service.getBooksByDate(period)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(object : DisposableSingleObserver<InfoBooksByDate>() {

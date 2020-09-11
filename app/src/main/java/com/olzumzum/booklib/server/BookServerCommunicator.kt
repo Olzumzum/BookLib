@@ -23,8 +23,8 @@ class BookServerCommunicator(private val mBookApi: BookApi, private val applicat
     /**
      * получить список бестселлеров по дате
      */
-    fun getBooksByDate(): Single<InfoBooksByDate> {
-        return mBookApi.getBooksByDate()
+    fun getBooksByDate(period: String): Single<InfoBooksByDate> {
+        return mBookApi.getBooksByDate(period)
             .flatMap { response ->
                 Single.just(response.infoBooksByDate)
             }
