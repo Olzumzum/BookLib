@@ -59,7 +59,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
-        recyclerView.addItemDecoration(RecyclerDivider(context!!))
+        recyclerView.addItemDecoration(RecyclerDivider(requireContext()))
 
         binding.booksByDateLsit.layoutManager = LinearLayoutManager(context)
 

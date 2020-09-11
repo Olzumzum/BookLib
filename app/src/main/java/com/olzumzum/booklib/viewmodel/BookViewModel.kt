@@ -19,9 +19,11 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
     //сводная информация по списку бесцеллеров
     private var infoBook: LiveData<InfoWithBooks>? = null
+
     //список книг-бестселлеров по заданной дате
     private var books: LiveData<List<BookX>>? = null
-     var book: LiveData<BookX>? = null
+    var book: LiveData<BookX>? = null
+    private var period: String = ""
 
     //для отображения одного элемента
     private lateinit var navigatorBooks: NavigatorBooks
@@ -31,16 +33,25 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         (application as App).getViewModelSubComponent().inject(this)
-        getBooksByDate()
+        getBooksByDate(getPeriod())
     }
 
+    /**
+     * получить период, за который приозводится поиск
+     */
+    private fun getPeriod(): String{
+        return if (period == "")
+            "2020-08-01"
+        else period
+    }
 
-    fun getBooksByDate(){
-        infoBook = bookRepository.getInfoBook()
+    private fun getBooksByDate(period: String) {
+        infoBook = bookRepository.getInfoBook(period)
 //        infoBook!!.checkDateNull(errorMessageId)
         books = bookRepository.getBooks()
 //        books?.checkDateNull(errorMessageId)
     }
+
     /**
      * вернуть информацию о списке бестселлеров
      * по указанной дате
@@ -55,7 +66,6 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun getIsLoaded(): LiveData<Boolean> = isLoaded
-
 
 
     fun itemOnClick(_book: BookX) {
