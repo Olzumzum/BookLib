@@ -45,7 +45,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      */
     private fun getPeriod(): String {
         return if (period == "")
-            "2020-08-01"
+            "2019-01-20"
         else period
     }
 
@@ -62,6 +62,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         checkError()
     }
 
+    /**
+     * проверка на пустоту полученных списков данных
+     */
     private fun checkError() = GlobalScope.launch(Dispatchers.IO){
         delay(1000)
         infoBook?.checkDateNull(errorMessageId)

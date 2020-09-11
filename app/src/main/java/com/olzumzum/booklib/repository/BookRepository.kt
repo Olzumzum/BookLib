@@ -22,6 +22,7 @@ class BookRepository(
     private val dao: BookByDateDao
 ) {
 
+    private var flagContainsInfo = false
     private val disposable: CompositeDisposable = CompositeDisposable()
 
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
@@ -59,8 +60,11 @@ class BookRepository(
     /**
      * проверить, есть ли данные с таким id
      */
-    private fun refreshInfoBooks(period: String) = GlobalScope.launch(Dispatchers.IO) {
+    private fun refreshInfoBooks(_period: String) = GlobalScope.launch(Dispatchers.IO) {
         //если в кеш есть запись с такими данными вернуть ее
+        var period = _period
+        if(period.isBlank())
+            period = "2019-01-20"
         if (dao.countRecord(period) == 0) {
 
             //иначе сделать запрос на сервер

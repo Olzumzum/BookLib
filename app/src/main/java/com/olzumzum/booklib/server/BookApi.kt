@@ -11,7 +11,7 @@ interface BookApi {
     @GET("lists/names.json?api-key=$API_KEY")
     fun getAllBooks(): Single<CategoriesResponse>
 
-    @GET("lists/period/hardcover-fiction.json?api-key=$API_KEY")
+    @GET("lists/{period}/hardcover-fiction.json?api-key=$API_KEY")
     fun getBooksByDate(@Path("period")period: String): Single<BooksByDateResponse>
 
     companion object{

@@ -33,9 +33,6 @@ interface BookByDateDao {
     @Query("SELECT count(*) FROM info_books_by_date where bestsellers_date like :period")
     suspend fun countRecord(period: String): Int
 
-    @Query("SELECT count(*) FROM bookX")
-     fun countBooks(): Int
-
     @Query("SELECT * FROM bookX")
     fun getBooks(): LiveData<List<BookX>>
 
