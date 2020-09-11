@@ -4,22 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.olzumzum.booklib.viewmodel.BookViewModel" />
     </data>
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/fragment_book_by_date_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextTextPersonName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:ems="10"
+                android:hint="@string/text_search_line"
+                android:inputType="textPersonName"
+                android:layout_weight="1"
+                android:text="2020-08-01" />
+
+            <ImageButton
+                android:id="@+id/calendar_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/calendar" />
+        </LinearLayout>
+
         <include
             layout="@layout/fragment_info_books_by_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:results="@{viewModel.results}"/>
+            app:results="@{viewModel.results}" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/books_by_date_lsit"
@@ -30,8 +54,7 @@
             android:layout_marginRight="16dp"
             app:layoutManager="LinearLayoutManager"
             tools:context=".ui.listbydata.BookByDateFragment"
-            tools:listitem="@layout/fragment_info_books_by_date"
-       />
+            tools:listitem="@layout/fragment_info_books_by_date" />
 
         <ProgressBar
             android:id="@+id/br_books_loading"
@@ -39,6 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="@{viewModel.isLoaded}"/>
-    </FrameLayout>
+            android:visibility="@{viewModel.isLoaded}" />
+    </LinearLayout>
 </layout>
