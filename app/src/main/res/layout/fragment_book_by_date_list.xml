@@ -21,8 +21,14 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
+            <ImageButton
+                android:id="@+id/calendar_button"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/calendar" />
+
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/editTextPeriod"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:drawableLeft="@android:drawable/ic_menu_search"
@@ -32,11 +38,12 @@
                 android:layout_weight="1"
                 android:text="2020-08-01" />
 
-            <ImageButton
-                android:id="@+id/calendar_button"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@drawable/calendar" />
+            <Button
+                android:id="@+id/search_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search_button_text" />
+
         </LinearLayout>
 
         <include
