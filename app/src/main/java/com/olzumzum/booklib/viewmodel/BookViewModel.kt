@@ -11,6 +11,10 @@ import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.booklib.ui.listbydata.NavigatorBooks
 import com.olzumzum.booklib.utils.checkDateNull
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class BookViewModel(application: Application) : AndroidViewModel(application) {
@@ -39,17 +43,30 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * получить период, за который приозводится поиск
      */
-    private fun getPeriod(): String{
+    private fun getPeriod(): String {
         return if (period == "")
             "2020-08-01"
         else period
     }
 
+    fun setPeriod(value: String) {
+        if (value.isNotBlank()) {
+            period = value
+            getBooksByDate(period)
+        }
+    }
+
     private fun getBooksByDate(period: String) {
         infoBook = bookRepository.getInfoBook(period)
-//        infoBook!!.checkDateNull(errorMessageId)
         books = bookRepository.getBooks()
-//        books?.checkDateNull(errorMessageId)
+        checkError()
+    }
+
+    private fun checkError() = GlobalScope.launch(Dispatchers.IO){
+        delay(1000)
+        infoBook?.checkDateNull(errorMessageId)
+        books?.checkDateNull(errorMessageId)
+
     }
 
     /**

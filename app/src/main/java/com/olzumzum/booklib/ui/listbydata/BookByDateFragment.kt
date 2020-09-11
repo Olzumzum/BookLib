@@ -1,6 +1,8 @@
 package com.olzumzum.booklib.ui.listbydata
 
+import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import androidx.fragment.app.Fragment
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
@@ -92,6 +95,13 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
             binding.editTextPeriod?.setText(updateLabel(date))
         }
 
+        binding.searchButton?.setOnClickListener {
+            hideKeyboard(this.context, view)
+            val period:String = binding.editTextPeriod?.text.toString()
+            if (period.isNotBlank())
+                viewModel.setPeriod(period)
+        }
+
 
         return view
     }
@@ -99,7 +109,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     /**
      * показать календарь
      */
-    private fun showCalendar():Calendar {
+    private fun showCalendar(): Calendar {
         val date = Calendar.getInstance()
         val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             date.set(Calendar.YEAR, year)
@@ -139,6 +149,14 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
     override fun onItemClicked(book: LiveData<BookX>?) {
         navController?.navigate(R.id.action_bookByDateFragment_to_bookFullInfoFragment)
+    }
+
+    /**
+     * скрыть клавиатуру
+     */
+    private fun hideKeyboard(context: Context?, view: View?){
+        val imm: InputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     companion object {

@@ -10,8 +10,9 @@ import com.olzumzum.booklib.R
 import com.squareup.picasso.Picasso
 
 fun LiveData<out Any>.checkDateNull(er: MutableLiveData<Int>){
+//    val checkVal = thispos
     if(this.value == null)
-        er.value = R.string.error_data_loading
+        er.postValue(R.string.error_data_loading)
 }
 
 /**
