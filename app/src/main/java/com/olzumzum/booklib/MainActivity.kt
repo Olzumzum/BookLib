@@ -21,7 +21,8 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == android.R.id.home) {
+        if (item.itemId == android.R
+                .id.home) {
             super.onBackPressed()
             supportActionBar?.setDisplayShowHomeEnabled(false)
             supportActionBar?.setDisplayHomeAsUpEnabled(false)

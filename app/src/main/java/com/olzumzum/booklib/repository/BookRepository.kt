@@ -30,7 +30,7 @@ class BookRepository(
      * вернуть информацию о списке бестселлеров
      */
     fun getInfoBook(): LiveData<InfoWithBooks>? {
-        val period: String = "2020-08-01"
+        val period: String =  "2020-08-01"
         refreshInfoBooks(period)
         return dao.getInfoBooksById(period)
 
@@ -59,14 +59,10 @@ class BookRepository(
 
     /**
      * проверить, есть ли данные с таким id
-     * ЗАМЕНИТЬ ПРОВЕРКУ ПО ИД НА ПРОВЕРКУ ПО ДАТЕ
      */
     private fun refreshInfoBooks(period: String) = GlobalScope.launch(Dispatchers.IO) {
-        var countRecord = 0
         //если в кеш есть запись с такими данными вернуть ее
-        countRecord = dao.countRecord(period)
-
-        if (countRecord == 0) {
+        if (dao.countRecord(period) == 0) {
 
             //иначе сделать запрос на сервер
             //получить данные
