@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-<!--    <item-->
-<!--        android:id="@+id/fragment_book_full_info"-->
-<!--        android:title="Full info of book" />-->
-<!--    <item-->
-<!--        android:id="@+id/fragment_book_by_date_layout"-->
-<!--        android:title="List of bestsellers"/>-->
+    <item
+        android:id="@+id/fragment_book_by_date_layout"
+        android:icon="@drawable/list"
+        android:title="@string/bestsellers"/>
 </menu>

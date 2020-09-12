@@ -37,5 +37,6 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="text_search_line">Enter date</string>
     <string name="search_button_text">Search</string>
+    <string name="bestsellers">Bestsellers</string>
 
 </resources>
