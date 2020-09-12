@@ -22,7 +22,7 @@
             app:results="@{viewModel.results}"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/books_by_date_lsit"
+            android:id="@+id/books_recycler"
             android:name="com.olzumzum.booklib.ui.listbydata.BookByDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

@@ -3,8 +3,9 @@ package com.olzumzum.booklib.ui.listbydata
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
+import android.opengl.Visibility
 import android.os.Bundle
-import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,10 +22,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
+import com.olzumzum.booklib.databinding.FragmentInfoBooksByDateBinding
 import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.ui.book_full_info.BookFullInfoFragment
 import com.olzumzum.booklib.viewmodel.BookViewModel
@@ -71,9 +74,14 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         binding.viewModel = viewModel
 
         //задать декоратор адаптеру
-        val recyclerView = view.findViewById<RecyclerView>(R.id.books_by_date_lsit)
-        recyclerView.addItemDecoration(RecyclerDivider(requireContext()))
-        binding.booksByDateLsit.layoutManager = LinearLayoutManager(context)
+        binding.booksRecycler.addItemDecoration(RecyclerDivider(requireContext()))
+        binding.booksRecycler.layoutManager = LinearLayoutManager(context)
+
+        val snapHelper = LinearSnapHelper()
+        snapHelper.attachToRecyclerView(binding.booksRecycler)
+
+        //скрытие окна со сводной информацией о списке бестселлеров
+        hideElement(binding.infoFragment?.infoLayout, binding.booksRecycler)
 
         //обработка нажатия на элемент списка
         viewModel.setNavigatorBooks(this)
@@ -81,7 +89,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         //отобразить список книг
         if (savedInstanceState == null)
             viewModel.getBooks()?.observe(viewLifecycleOwner, Observer { books ->
-                binding.booksByDateLsit.adapter = BookRecyclerViewAdapter(books, viewModel)
+                binding.booksRecycler.adapter = BookRecyclerViewAdapter(books, viewModel)
             })
 
         //отобразить ошибку
@@ -95,15 +103,37 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
             binding.editTextPeriod?.setText(updateLabel(date))
         }
 
+        //реакция на кнопку поиска
         binding.searchButton?.setOnClickListener {
             hideKeyboard(this.context, view)
-            val period:String = binding.editTextPeriod?.text.toString()
+            val period: String = binding.editTextPeriod?.text.toString()
             if (period.isNotBlank())
                 viewModel.setPeriod(period)
         }
 
 
+
         return view
+    }
+
+    /**
+     * скрыть элемент при прокрутке recyclerView
+     */
+    private fun hideElement(view: View?, recyclerView: RecyclerView) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (dy > 10) {
+                    if (view?.visibility == View.VISIBLE)
+                        view.visibility = View.GONE
+                } else {
+
+//                    Log.e("scroll", "count element $r")
+//                    if (view?.visibility == View.GONE)
+//                        view.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 
     /**
@@ -154,8 +184,9 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     /**
      * скрыть клавиатуру
      */
-    private fun hideKeyboard(context: Context?, view: View?){
-        val imm: InputMethodManager = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    private fun hideKeyboard(context: Context?, view: View?) {
+        val imm: InputMethodManager =
+            context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 

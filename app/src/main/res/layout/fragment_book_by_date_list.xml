@@ -36,6 +36,7 @@
                 android:hint="@string/text_search_line"
                 android:inputType="textPersonName"
                 android:layout_weight="1"
+                android:focusable="false"
                 android:text="2020-08-01" />
 
             <Button
@@ -47,13 +48,14 @@
         </LinearLayout>
 
         <include
+            android:id="@+id/info_fragment"
             layout="@layout/fragment_info_books_by_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:results="@{viewModel.results}" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/books_by_date_lsit"
+            android:id="@+id/books_recycler"
             android:name="com.olzumzum.booklib.ui.listbydata.BookByDate"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
