@@ -5,4 +5,13 @@
         android:id="@+id/fragment_book_by_date_layout"
         android:icon="@drawable/list"
         android:title="@string/bestsellers"/>
+    <item
+        android:id="@+id/fragment_categories_bestseller"
+        android:icon="@drawable/categories"
+        android:title="@string/categories"
+        />
+    <item
+        android:icon="@drawable/person"
+        android:title="@string/personal"
+        />
 </menu>

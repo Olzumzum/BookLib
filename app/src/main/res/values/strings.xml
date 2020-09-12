@@ -38,5 +38,7 @@
     <string name="text_search_line">Enter date</string>
     <string name="search_button_text">Search</string>
     <string name="bestsellers">Bestsellers</string>
+    <string name="categories">Categories</string>
+    <string name="personal">Personal</string>
 
 </resources>
