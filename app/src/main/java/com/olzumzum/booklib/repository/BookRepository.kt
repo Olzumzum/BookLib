@@ -31,7 +31,7 @@ class BookRepository(
     /**
      * вернуть информацию о списке бестселлеров
      */
-    fun getInfoBook(period: String): LiveData<InfoBook>? {
+    fun getInfoBook(period: String): LiveData<InfoWithBooks>? {
         refreshInfoBooks(period)
         return dao.getInfoBooksByPeriod(period)
 

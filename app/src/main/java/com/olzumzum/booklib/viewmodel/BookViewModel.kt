@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.pojo.BookX
-import com.olzumzum.booklib.model.pojo.InfoBook
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.booklib.ui.listbydata.NavigatorBooks
@@ -24,7 +23,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private var isLoaded: MutableLiveData<Boolean> = MutableLiveData()
 
     //сводная информация по списку бесцеллеров
-    private var infoBook: LiveData<InfoBook>? = null
+    private var infoBook: LiveData<InfoWithBooks>? = null
 
     //список книг-бестселлеров по заданной дате
     private var books: LiveData<List<BookX>>? = null
@@ -79,7 +78,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      * вернуть информацию о списке бестселлеров
      * по указанной дате
      */
-    fun getResults(): LiveData<InfoBook>? = infoBook
+    fun getResults(): LiveData<InfoWithBooks>? = infoBook
 
 
     fun getBooks(): LiveData<List<BookX>>? = books
