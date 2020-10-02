@@ -2,7 +2,6 @@ package com.olzumzum.booklib.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.db.BookByDateDao
 import com.olzumzum.booklib.model.dto.Category
 import com.olzumzum.booklib.model.dto.InfoBooksByDate
@@ -32,10 +31,9 @@ class BookRepository(
     /**
      * вернуть информацию о списке бестселлеров
      */
-    fun getInfoBook(period: String): LiveData<InfoWithBooks>? {
+    fun getInfoBook(period: String): LiveData<InfoBook>? {
         refreshInfoBooks(period)
-        info = dao.getInfoBooksById(period)
-        return info
+        return dao.getInfoBooksByPeriod(period)
 
     }
 
@@ -97,9 +95,11 @@ class BookRepository(
                                     updated = info.updated
                                 )
 
+                                val idInfo = dao.insertInfo(infoBook)
+
                                 //вставить информацию о книгах из списка бестселлеров
                                 info.books.forEach { book ->
-                                    book.idInfo = dao.insertInfo(infoBook)
+                                    book.idInfo = idInfo
                                     dao.insertBook(book)
                                 }
                             }

@@ -21,8 +21,14 @@ interface BookByDateDao {
     /** вернуть информацию о списках бестселлеров и книг в них
      * по заданному периоду
      */
-    @Query("SELECT * FROM info_books_by_date where bestsellers_date like :period ")
-    fun getInfoBooksById(period: String): LiveData<InfoWithBooks>
+    @Query("SELECT * FROM info_books_by_date where :period between previous_published_date and published_date ")
+    fun getInfoBooksByPeriod(period: String): LiveData<InfoBook>
+
+    /**
+     * вернуть первую строчку из таблицы информации о книгах
+     */
+    @Query("SELECT * FROM info_books_by_date WHERE ROWID = (SELECT MIN(ROWID) FROM info_books_by_date)")
+    fun getInfoFirstRow(): LiveData<InfoBook>
 
     @Query("SELECT Exists ( SELECT * FROM info_books_by_date where bestsellers_date like :period)")
     suspend fun availabilityRecord(period: String): Int

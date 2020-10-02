@@ -88,9 +88,9 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
         //отобразить список книг
         if (savedInstanceState == null)
-            viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
-                if (info != null)
-                    binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
+            viewModel.getBooks()?.observe(viewLifecycleOwner, Observer { books ->
+//                if (info != null)
+                    binding.booksRecycler.adapter = BookRecyclerViewAdapter(books, viewModel)
             })
 
         //отобразить ошибку
