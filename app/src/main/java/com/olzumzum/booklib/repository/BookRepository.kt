@@ -25,6 +25,8 @@ class BookRepository(
     private var flagContainsInfo = false
     private val disposable: CompositeDisposable = CompositeDisposable()
 
+    var info: LiveData<InfoWithBooks>? = null
+
     fun getAllBook(): Single<List<Category>> = service.getAllCategory()
 
     /**
@@ -32,10 +34,14 @@ class BookRepository(
      */
     fun getInfoBook(period: String): LiveData<InfoWithBooks>? {
         refreshInfoBooks(period)
-        return dao.getInfoBooksById(period)
+        info = dao.getInfoBooksById(period)
+        return info
 
     }
 
+    /**
+     * вернуть книгу по идентификатору
+     */
     fun getBookByData(id: Long): LiveData<BookX>?{
         return dao.getBookById(id)
     }
@@ -46,6 +52,7 @@ class BookRepository(
     fun getBooks(): LiveData<List<BookX>>? {
         return dao.getBooks()
     }
+
 
     /**
      * удалить все элементы в базе

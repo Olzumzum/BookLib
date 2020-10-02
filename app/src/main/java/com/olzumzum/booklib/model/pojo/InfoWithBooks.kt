@@ -1,5 +1,6 @@
 package com.olzumzum.booklib.model.pojo
 
+import androidx.lifecycle.LiveData
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.olzumzum.booklib.model.pojo.BookX

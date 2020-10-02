@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
@@ -59,6 +60,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private fun getBooksByDate(period: String) {
         infoBook = bookRepository.getInfoBook(period)
         books = bookRepository.getBooks()
+
         checkError()
     }
 
