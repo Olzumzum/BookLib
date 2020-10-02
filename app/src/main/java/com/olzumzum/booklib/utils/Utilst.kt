@@ -8,6 +8,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.olzumzum.booklib.R
 import com.squareup.picasso.Picasso
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun LiveData<out Any>.checkDateNull(er: MutableLiveData<Int>){
 //    val checkVal = thispos
@@ -42,4 +44,15 @@ fun isAbsentText(text: String?): String{
     return if(text == null || text == "")
         "No value"
     else text
+}
+
+/**
+ * привести дату к нужному виду
+ * на вход получаем необходимую дату
+ * выход - ее строковое представление
+ */
+private val DATE_FORMAT = "yyyy-MM-dd"
+fun changeDateFormat(date: Calendar): String {
+    val sdf = SimpleDateFormat(DATE_FORMAT, Locale.US)
+    return sdf.format(date.time)
 }

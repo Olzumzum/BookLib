@@ -11,11 +11,13 @@ import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
 import com.olzumzum.booklib.repository.BookRepository
 import com.olzumzum.booklib.ui.listbydata.NavigatorBooks
+import com.olzumzum.booklib.utils.changeDateFormat
 import com.olzumzum.booklib.utils.checkDateNull
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class BookViewModel(application: Application) : AndroidViewModel(application) {
@@ -44,9 +46,12 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     /**
      * получить период, за который приозводится поиск
      */
-    private fun getPeriod(): String {
-        return if (period == "")
-            "2019-01-20"
+     fun getPeriod(): String {
+        return if (period == ""){
+            val currentDate = GregorianCalendar()
+            changeDateFormat(currentDate)
+
+        }
         else period
     }
 

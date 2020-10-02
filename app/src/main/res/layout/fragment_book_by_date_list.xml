@@ -38,7 +38,7 @@
                 android:inputType="textPersonName"
                 android:layout_weight="1"
                 android:focusable="false"
-                android:text="2020-08-01" />
+                android:text="@{viewModel.period}" />
 
             <Button
                 android:id="@+id/search_button"

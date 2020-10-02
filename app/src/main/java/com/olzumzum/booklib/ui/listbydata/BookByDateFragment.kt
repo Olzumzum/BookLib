@@ -3,9 +3,7 @@ package com.olzumzum.booklib.ui.listbydata
 import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,9 +11,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -27,13 +22,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.databinding.FragmentBookByDateListBinding
-import com.olzumzum.booklib.databinding.FragmentInfoBooksByDateBinding
 import com.olzumzum.booklib.model.pojo.BookX
-import com.olzumzum.booklib.ui.book_full_info.BookFullInfoFragment
+import com.olzumzum.booklib.utils.changeDateFormat
 import com.olzumzum.booklib.viewmodel.BookViewModel
 import kotlinx.android.synthetic.main.fragment_book_by_date_list.*
-import java.net.DatagramPacket
-import java.text.SimpleDateFormat
 import java.util.*
 import javax.inject.Inject
 
@@ -42,7 +34,7 @@ import javax.inject.Inject
  */
 class BookByDateFragment : Fragment(), NavigatorBooks {
 
-    private val DATE_FORMAT = "yyyy-MM-dd"
+
 
     @Inject
     lateinit var viewModel: BookViewModel
@@ -88,9 +80,9 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
 
         //отобразить список книг
         if (savedInstanceState == null)
-            viewModel.getBooks()?.observe(viewLifecycleOwner, Observer { books ->
-//                if (info != null)
-                    binding.booksRecycler.adapter = BookRecyclerViewAdapter(books, viewModel)
+            viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
+                if (info != null)
+                    binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
             })
 
         //отобразить ошибку
@@ -101,8 +93,9 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         //установить текст выбранной из календаря даты
         binding.calendarButton?.setOnClickListener {
             val date = showCalendar()
-            binding.editTextPeriod?.setText(updateLabel(date))
+            binding.editTextPeriod?.setText(changeDateFormat(date))
         }
+
 
         //реакция на кнопку поиска
         binding.searchButton?.setOnClickListener {
@@ -157,15 +150,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         return date
     }
 
-    /**
-     * привести дату к нужному виду
-     * на вход получаем необходимую дату
-     * выход - ее строковое представление
-     */
-    private fun updateLabel(date: Calendar): String {
-        val sdf = SimpleDateFormat(DATE_FORMAT, Locale.US)
-        return sdf.format(date.time)
-    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
