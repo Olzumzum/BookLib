@@ -35,7 +35,6 @@ import javax.inject.Inject
 class BookByDateFragment : Fragment(), NavigatorBooks {
 
 
-
     @Inject
     lateinit var viewModel: BookViewModel
 
@@ -81,8 +80,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         //отобразить список книг
         if (savedInstanceState == null)
             viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
-                if (info != null)
-                    binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
+                binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
             })
 
         //отобразить ошибку
@@ -96,7 +94,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
             binding.editTextPeriod?.setText(changeDateFormat(date))
         }
 
-
         //реакция на кнопку поиска
         binding.searchButton?.setOnClickListener {
             hideKeyboard(this.context, view)
@@ -104,8 +101,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
             if (period.isNotBlank())
                 viewModel.setPeriod(period)
         }
-
-
 
         return view
     }
@@ -149,7 +144,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         ).show();
         return date
     }
-
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

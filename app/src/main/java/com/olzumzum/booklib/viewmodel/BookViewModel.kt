@@ -62,9 +62,12 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    /**
+     *вернуть информацию о списке бестселлеров по дате
+     */
     private fun getBooksByDate(period: String) {
         infoBook = bookRepository.getInfoBook(period)
-        books = bookRepository.getBooks()
+
 
         checkError()
     }
