@@ -21,18 +21,20 @@ import java.util.*
 import javax.inject.Inject
 
 class BookViewModel(application: Application) : AndroidViewModel(application) {
+    //id сообщения об ошибке, если таковая имеется
     private val errorMessageId: MutableLiveData<Int> = MutableLiveData()
+    //флаг состояния загрузки данных
     private var isLoaded: MutableLiveData<Boolean> = MutableLiveData()
-
     //сводная информация по списку бесцеллеров
     private var infoBook: LiveData<InfoWithBooks>? = null
-
     //список книг-бестселлеров по заданной дате
     private var books: LiveData<List<BookX>>? = null
+    //книга - элемент списка бестселлеров
     var book: LiveData<BookX>? = null
-    private var period: String = ""
+    //период за который производится поиск
+    private val period = MutableLiveData<String>(changeDateFormat(GregorianCalendar()))
 
-    //для отображения одного элемента
+    //для отображения одного элемента списка
     private lateinit var navigatorBooks: NavigatorBooks
 
     @Inject
@@ -40,35 +42,26 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
     init {
         (application as App).getViewModelSubComponent().inject(this)
-        getBooksByDate(getPeriod())
+        getBooksByDate(period = period.value)
     }
 
     /**
      * получить период, за который приозводится поиск
      */
-     fun getPeriod(): String {
-        return if (period == ""){
-            val currentDate = GregorianCalendar()
-            changeDateFormat(currentDate)
-
-        }
-        else period
-    }
+     fun getPeriod(): LiveData<String> = period
 
     fun setPeriod(value: String) {
         if (value.isNotBlank()) {
-            period = value
-            getBooksByDate(period)
+            period.value = value
+            getBooksByDate(period.value)
         }
     }
 
     /**
      *вернуть информацию о списке бестселлеров по дате
      */
-    private fun getBooksByDate(period: String) {
-        infoBook = bookRepository.getInfoBook(period)
-
-
+    private fun getBooksByDate(period: String?) {
+        infoBook = bookRepository.getInfoBook(period!!)
         checkError()
     }
 

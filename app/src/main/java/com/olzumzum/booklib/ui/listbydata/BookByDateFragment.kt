@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -78,30 +80,41 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         viewModel.setNavigatorBooks(this)
 
         //отобразить список книг
-            viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
-                binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
-            })
+        viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
+            binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
+        })
 
         //отобразить ошибку
         viewModel.getErrorMessage().observe(viewLifecycleOwner, Observer { message ->
             showErrorMessage(message)
         })
 
+        //слушать изменение даты
+        viewModel.getPeriod().observe(viewLifecycleOwner, Observer { period ->
+            binding.editTextPeriod?.setText(period)
+        })
+
         //установить текст выбранной из календаря даты
         binding.calendarButton?.setOnClickListener {
-            val date = showCalendar()
-            binding.editTextPeriod?.setText(changeDateFormat(date))
+            showCalendar()
         }
 
         //реакция на кнопку поиска
         binding.searchButton?.setOnClickListener {
             hideKeyboard(this.context, view)
-        val period: String = binding.editTextPeriod?.text.toString()
-        if (period.isNotBlank())
-            viewModel.setPeriod(period)
-    }
+            val period: String = binding.editTextPeriod?.text.toString()
+            if (period.isNotBlank())
+                viewModel.setPeriod(period)
+        }
 
         return view
+    }
+
+    /**
+     * установить дату поиска
+     */
+    private fun setSearchDate(valueDate: String) {
+        viewModel.setPeriod(valueDate)
     }
 
     /**
@@ -127,12 +140,13 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     /**
      * показать календарь
      */
-    private fun showCalendar(): Calendar {
+    private fun showCalendar(){
         val date = Calendar.getInstance()
         val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             date.set(Calendar.YEAR, year)
             date.set(Calendar.MONTH, month)
             date.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            setSearchDate(changeDateFormat(date))
         }
 
         DatePickerDialog(
@@ -140,8 +154,8 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
             date.get(Calendar.YEAR),
             date.get(Calendar.MONTH),
             date.get(Calendar.DAY_OF_MONTH)
-        ).show();
-        return date
+        ).show()
+
     }
 
 
