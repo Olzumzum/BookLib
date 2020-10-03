@@ -78,7 +78,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         viewModel.setNavigatorBooks(this)
 
         //отобразить список книг
-        if (savedInstanceState == null)
             viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
                 binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
             })
@@ -97,10 +96,10 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         //реакция на кнопку поиска
         binding.searchButton?.setOnClickListener {
             hideKeyboard(this.context, view)
-            val period: String = binding.editTextPeriod?.text.toString()
-            if (period.isNotBlank())
-                viewModel.setPeriod(period)
-        }
+        val period: String = binding.editTextPeriod?.text.toString()
+        if (period.isNotBlank())
+            viewModel.setPeriod(period)
+    }
 
         return view
     }
