@@ -6,6 +6,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.pojo.BookX
 import com.olzumzum.booklib.model.pojo.InfoWithBooks
@@ -70,8 +71,9 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      */
     private fun checkError() = GlobalScope.launch(Dispatchers.IO){
         delay(1000)
+        if(infoBook?.value?.books.isNullOrEmpty())
+            errorMessageId.postValue(R.string.error_list_loading)
         infoBook?.checkDateNull(errorMessageId)
-        books?.checkDateNull(errorMessageId)
 
     }
 

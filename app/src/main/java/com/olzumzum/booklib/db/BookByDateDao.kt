@@ -22,7 +22,7 @@ interface BookByDateDao {
      * по заданному периоду
      */
     @Query("SELECT * FROM info_books_by_date where :period between previous_published_date and published_date ")
-    fun getInfoBooksByPeriod(period: String): LiveData<InfoWithBooks>
+    fun getInfoBooksByPeriod(period: String): LiveData<InfoWithBooks>?
 
     /**
      * вернуть первую строчку из таблицы информации о книгах
@@ -36,7 +36,7 @@ interface BookByDateDao {
     /** вернуть количество записей в таблице информации о списках бестселлеров
      * по указанному периоду
      */
-    @Query("SELECT count(*) FROM info_books_by_date where bestsellers_date like :period")
+    @Query("SELECT count(*) FROM info_books_by_date where :period between previous_published_date and published_date ")
     suspend fun countRecord(period: String): Int
 
     @Query("SELECT * FROM bookX")

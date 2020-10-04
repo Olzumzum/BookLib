@@ -3,6 +3,7 @@
 
     <!-- Error message -->
     <string name="error_data_loading">Data loading error</string>
+    <string name="error_list_loading">Error loading list</string>
 
     <!-- imformation result book by date -->
     <string name="info_books_by_date_date_public">Date of publication</string>

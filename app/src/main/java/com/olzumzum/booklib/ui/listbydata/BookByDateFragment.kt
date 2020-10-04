@@ -69,19 +69,30 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         //задать декоратор адаптеру
         binding.booksRecycler.addItemDecoration(RecyclerDivider(requireContext()))
         binding.booksRecycler.layoutManager = LinearLayoutManager(context)
+        val adapter = BookRecyclerViewAdapter(viewModel)
+        binding.booksRecycler.adapter = adapter
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.booksRecycler)
 
         //скрытие окна со сводной информацией о списке бестселлеров
-        hideElement(binding.infoFragment?.infoLayout, binding.booksRecycler)
+//        hideElement(binding.infoFragment?.infoLayout, binding.booksRecycler)
 
         //обработка нажатия на элемент списка
         viewModel.setNavigatorBooks(this)
 
         //отобразить список книг
         viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
-            binding.booksRecycler.adapter = BookRecyclerViewAdapter(info.books, viewModel)
+            Log.e("scroll", "Тут")
+            if(info != null) {
+                Log.e("scroll", "Данные изменены ${info.info.publishedDate} и ${info.books.get(0).title}")
+                adapter.fillBooks(info.books)
+                (binding.booksRecycler.adapter as BookRecyclerViewAdapter).notifyDataSetChanged()
+            } else {
+                Log.e("scroll", "Данные нулевые")
+
+            }
+
         })
 
         //отобразить ошибку
@@ -140,7 +151,7 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
     /**
      * показать календарь
      */
-    private fun showCalendar(){
+    private fun showCalendar() {
         val date = Calendar.getInstance()
         val dateListener = DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
             date.set(Calendar.YEAR, year)
