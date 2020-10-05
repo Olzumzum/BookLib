@@ -81,20 +81,6 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         viewModel.setNavigatorBooks(this)
 
         //отобразить список книг
-        viewModel.getInfoBook().observe(viewLifecycleOwner, Observer { info ->
-            Log.e("scroll", "Тут")
-            adapter.fillBooks(info.books)
-
-//            if(info != null) {
-//                Log.e("scroll", "Данные изменены ${info.info.publishedDate} и ${info.books.get(0).title}")
-//
-//            } else {
-//                Log.e("scroll", "Данные нулевые")
-//
-//            }
-
-        })
-
         viewModel.getBooks()?.observe(viewLifecycleOwner, Observer { books->
             Log.e("scroll", "Чекаем книжки")
             adapter.fillBooks(books)
