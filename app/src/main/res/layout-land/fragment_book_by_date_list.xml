@@ -19,7 +19,7 @@
             layout="@layout/fragment_info_books_by_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:results="@{viewModel.results}"/>
+            app:results="@{viewModel.infoBook}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/books_recycler"

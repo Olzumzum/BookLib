@@ -1,11 +1,9 @@
 package com.olzumzum.booklib.viewmodel
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.olzumzum.booklib.R
 import com.olzumzum.booklib.app.App
 import com.olzumzum.booklib.model.pojo.BookX
@@ -28,8 +26,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
     private var isLoaded: MutableLiveData<Boolean> = MutableLiveData()
     //сводная информация по списку бесцеллеров
     private var infoBook: LiveData<InfoWithBooks>? = null
-    //список книг-бестселлеров по заданной дате
-    private var books: LiveData<List<BookX>>? = null
+    private var books: MutableLiveData<List<BookX>>? = MutableLiveData()
     //книга - элемент списка бестселлеров
     var book: LiveData<BookX>? = null
     //период за который производится поиск
@@ -63,6 +60,7 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
      */
     private fun getBooksByDate(period: String?) {
         infoBook = bookRepository.getInfoBook(period!!)
+        books?.value = infoBook?.value?.books
         checkError()
     }
 
@@ -77,14 +75,13 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
     }
 
+    fun getBooks(): LiveData<List<BookX>>? = books
+
     /**
      * вернуть информацию о списке бестселлеров
      * по указанной дате
      */
-    fun getResults(): LiveData<InfoWithBooks>? = infoBook
-
-
-    fun getBooks(): LiveData<List<BookX>>? = books
+    fun getInfoBook(): LiveData<InfoWithBooks> = infoBook!!
 
     fun getErrorMessage(): LiveData<Int> {
         return errorMessageId
@@ -92,15 +89,12 @@ class BookViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getIsLoaded(): LiveData<Boolean> = isLoaded
 
-
     fun itemOnClick(_book: BookX) {
-        Log.e("Logg", "itemOnClick ${_book.id}")
         book = bookRepository.getBookByData(_book.id)
         navigatorBooks.onItemClicked(book)
     }
 
     fun setNavigatorBooks(navigatorBooks: NavigatorBooks) {
-        Log.e("Logg", "setNavigatorBooks")
         this@BookViewModel.navigatorBooks = navigatorBooks
     }
 

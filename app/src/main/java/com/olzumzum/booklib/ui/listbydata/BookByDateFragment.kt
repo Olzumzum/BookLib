@@ -12,7 +12,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LiveData
@@ -82,17 +81,23 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         viewModel.setNavigatorBooks(this)
 
         //отобразить список книг
-        viewModel.getResults()?.observe(viewLifecycleOwner, Observer { info ->
+        viewModel.getInfoBook().observe(viewLifecycleOwner, Observer { info ->
             Log.e("scroll", "Тут")
-            if(info != null) {
-                Log.e("scroll", "Данные изменены ${info.info.publishedDate} и ${info.books.get(0).title}")
-                adapter.fillBooks(info.books)
-                (binding.booksRecycler.adapter as BookRecyclerViewAdapter).notifyDataSetChanged()
-            } else {
-                Log.e("scroll", "Данные нулевые")
+            adapter.fillBooks(info.books)
 
-            }
+//            if(info != null) {
+//                Log.e("scroll", "Данные изменены ${info.info.publishedDate} и ${info.books.get(0).title}")
+//
+//            } else {
+//                Log.e("scroll", "Данные нулевые")
+//
+//            }
 
+        })
+
+        viewModel.getBooks()?.observe(viewLifecycleOwner, Observer { books->
+            Log.e("scroll", "Чекаем книжки")
+            adapter.fillBooks(books)
         })
 
         //отобразить ошибку
@@ -103,6 +108,8 @@ class BookByDateFragment : Fragment(), NavigatorBooks {
         //слушать изменение даты
         viewModel.getPeriod().observe(viewLifecycleOwner, Observer { period ->
             binding.editTextPeriod?.setText(period)
+            Log.e("scroll", "период $period")
+
         })
 
         //установить текст выбранной из календаря даты

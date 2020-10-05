@@ -42,10 +42,10 @@ class BookRecyclerViewAdapter(
         return books?.size!!
     }
 
-    fun fillBooks(_books: List<BookX>) {
+    fun fillBooks(_books: List<BookX>?) {
         books = _books
         notifyDataSetChanged()
-        Log.e("scroll", "Пришедшие данные ${_books.get(0).title}")
+        Log.e("scroll", "Пришедшие данные ${_books?.get(0)?.title}")
         Log.e("scroll", "Данные изменены ${books?.get(0)?.title}")
     }
 
